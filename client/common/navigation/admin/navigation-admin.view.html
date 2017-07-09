@@ -266,7 +266,7 @@
 </header>
 <!--header end-->
 <aside>
-  <div id="sidebar" class="nav-collapse fadein fadeout" ng-show="navvm.showSidebar">
+  <div id="sidebar" class="nav-collapse fadein fadeout"  ng-class="{shrunk : !navvm.showSidebar}">
     <!-- sidebar menu start-->
     <ul class="sidebar-menu">
         <li ng-class="vm.isActiveTab('administracion')" class="">

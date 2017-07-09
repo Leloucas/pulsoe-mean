@@ -90,9 +90,9 @@ table tr th { color: #688a7e;}
 
 }
 
-.container{
+/*.container{
   width: 100% !important;
-}
+}*/
 
 
 .Creative-pro, .Creative-pro h3{
@@ -513,11 +513,15 @@ table tr th { color: #688a7e;}
 
 #sidebar {
 
-    width: 180px;
+    width: 13%;
+
+    min-width: 13%;
 
     height: 100%;
 
     position: fixed;
+
+    float: left;
 
     background: #394a59;
 
@@ -577,6 +581,8 @@ ul.sidebar-menu {
 #sidebar > ul > li.active > ul.sub, #sidebar > ul > li > ul.sub > li > a {
 
     display: block;
+
+    width: 180px;
 
 }
 
@@ -988,7 +994,9 @@ ul.sidebar-menu li.active a i {
 
 #main-content {
 
-    margin-left: 180px;
+    margin-left: 14%;
+
+    float: left;
 
 }
 
@@ -9981,12 +9989,39 @@ span.customSelect.changed {
 	display: inline-block !important;
 }
 
+#sidebar.shrunk{
+  width : 40px;
+  min-width: 3%;
+}
+#sidebar.shrunk ul.sidebar-menu li a span {
+  display: none;
+}
+
+#sidebar.shrunk ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus{
+  width: 20%;
+  display: block;
+}
+
+#sidebar.shrunk ul.sidebar-menu li a:hover span, #sidebar.shrunk ul.sidebar-menu li a:focus span {
+  display: inline-block;
+}
+
 #wrapper{
   margin-top: -5em;
 }
 
-@media(max-width: 784px){
+ul.sidebar-menu li a{
+  border-right: none;
+}
 
+.display-tip{
+  display: none;
+}
+
+@media(max-width: 784px){
+  .display-tip{
+    display: block;
+  }
 }
 
 @media(min-width: 768px){

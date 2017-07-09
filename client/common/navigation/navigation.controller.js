@@ -8,6 +8,8 @@ function navigationCtrl($location, authentication){
 
   vm.currentUser = authentication.currentUser();
 
+  console.log(vm.currentUser);
+
   vm.error = false;
   vm.errormessage = "";
 

@@ -72,9 +72,10 @@
             {{ navvm.currentUser.name }} <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="/perfil">Mi perfil</a></li>
+            <li><a href="/perfil"><i class="fa fa-user" aria-hidden="true"></i> Mi perfil</a></li>
+            <li class="divider"></li>
             <li>
-              <a href="" ng-click="navvm.logout()">Cerrar sesión</a>
+              <a href="" ng-click="navvm.logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesión</a>
             </li>
           </ul>
         </li>

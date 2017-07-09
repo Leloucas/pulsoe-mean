@@ -37,7 +37,8 @@ authentication.$inject = ['$http', '$window', '$location'];
           name : payload.name,
           lastname : payload.lastname,
           avatar : payload.avatar,
-          registered : payload.registered
+          registered : payload.registered,
+          level : payload.level
         };
       }
     };
