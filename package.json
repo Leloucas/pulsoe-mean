@@ -12,6 +12,7 @@
   ],
   "author": "King Claus",
   "license": "ISC",
+  "repository": "https://leloucas@bitbucket.org/leloucas/mean-pulso.git",
   "dependencies": {
     "angular": "^1.6.4",
     "angular-animate": "^1.6.4",
