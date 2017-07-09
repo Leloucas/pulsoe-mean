@@ -1,0 +1,54 @@
+<navigation></navigation>
+
+<section class="white-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="one-em text-right">
+          <h3>Detalles de contacto</h3>
+          <p>Rosales 97-A Sur, colonia Centro <br>
+            Hermosillo, Sonora 83000</p>
+          <p><abbr title="Teléfono"> <i class="fa fa-phone" aria-hidden="true"></i> Tel:</abbr> (662) 212 5204</p>
+          <p><abbr title="Correo electrónico"> <i class="fa fa-envelope" aria-hidden="true"></i> E:</abbr> serviciorh@pulsoe.com</p>
+          <p><abbr title="Horario"> <i class="fa fa-clock-o" aria-hidden="true"></i> H:</abbr> Lunes a viernes: 9:00 AM a 7:00 PM </p>
+          <p style="text-indent: 2.1em;">Sábados: 9:00 AM a 3:00 PM</p>
+
+          <ul class="list-unstyled list-inline list-social-icons text-center">
+            <li><a href="https://www.facebook.com/pages/Pulso-Empresarial/100885779970458" target="_blank"><i class="fa fa-facebook-square fa-2x"></i></a></li>
+            <li><a href="https://www.linkedin.com/pub/pulso-empresarial/27/aab/103" target="_blank"><i class="fa fa-linkedin-square fa-2x"></i></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <iframe class="full-width" style="border:0" marginheight="0" marginwidth="0" scrolling="no" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1504.6587727869385!2d-110.95771649409727!3d29.07860104591079!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86ce844e9800c7f1%3A0x11f19f1f176b54b8!2sRosales+97A-C%2C+Centro%2C+83000+Hermosillo%2C+Son.!5e1!3m2!1ses!2smx!4v1438887445280" height="550" frameborder="0" width="700"></iframe>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <h3 class="text-center">Contáctenos</h3>
+        <form action="">
+          <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" id="nombre" ng-model="vm.nombre" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="numero">Número de telefono:</label>
+            <input type="telephone" name="numero" id="numero" ng-model="vm.numero" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Correo electrónico:</label>
+            <input type="email" name="email" id="email" ng-model="vm.email" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="mensaje">Mensaje (600 caracteres máximo):</label>
+            <textarea rows="6" name="mensaje" id="mensaje" ng-model="vm.mensaje" class="form-control" maxlength="600" required></textarea>
+          </div>
+          <input type="submit" value="Enviar mensaje" class="btn btn-default">
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main-footer></main-footer>

@@ -1,0 +1,53 @@
+<navigation></navigation>
+
+<section class="white-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="page-header text-center">{{vm.titulo}}</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <img ng-src="{{vm.img}}" alt="{{vm.titulo}}" title="{{vm.titulo}}" class="img-responsive">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <p class="text-justify">{{vm.text}}</p>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel-group text-justify" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="col-md-6" ng-repeat="item in vm.itemtab">
+                        <div class="panel panel-black">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="" ng-click="item.show = !item.show" aria-expanded="true" aria-controls="collapse">
+                                <div class="panel-heading clearfix" role="tab" id="{{item.id}}">
+                                    <h4 class="panel-title">
+                                        {{item.title}}
+                                        <span class="toggle-icon pull-right" ng-show="item.icon"><img ng-src="{{item.icon}}" class="image img-responsive"></span>
+                                    </h4>
+                                </div>
+                            </a>
+
+                            <div ng-show="item.show" role="tabpanel" aria-labelledby="{{item.id}}">
+                                <div class="panel-body">
+                                    {{item.description}}
+                                    <ol type="A" ng-show="item.list">
+                                        <li ng-repeat="value in item.list">{{value}}</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main-footer></main-footer>

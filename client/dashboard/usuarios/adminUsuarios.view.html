@@ -1,0 +1,83 @@
+<navigation-admin></navigation-admin>
+
+<section id="main-content" class="wrapper">
+  <div class="container">
+    <div class="row white-bg">
+      <div class="col-md-12">
+
+        <h1>Lista de usuarios</h1>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="table-responsive">
+              <input type="search" class="form-control" ng-model="vm.filter" placeholder="Buscar en la tabla">
+              <br>
+              <table id="userTable" class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th ng-click="vm.sort('name')">
+                      <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='name','fa fa-sort-desc':!vm.reverse && vm.sortKey==='name', 'fa fa-sort' : vm.sortKey!=='name'}"></i> Nombre
+                    </th>
+                    <th ng-click="vm.sort('email')">
+                      <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='email','fa fa-sort-desc':!vm.reverse && vm.sortKey==='email', 'fa fa-sort' : vm.sortKey!=='email'}"></i> Correo electrónico
+                    </th>
+                    <th ng-click="vm.sort('registered')">
+                      <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='registered','fa fa-sort-desc':!vm.reverse && vm.sortKey==='registered', 'fa fa-sort' : vm.sortKey!=='registered'}"></i> Registrado
+                    </th>
+                    <th ng-click="vm.sort('data.location.pais')">
+                      <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='data.location.pais','fa fa-sort-desc':!vm.reverse && vm.sortKey==='data.location.pais', 'fa fa-sort' : vm.sortKey!=='data.location.pais'}"></i> Ubicación
+                    </th>
+                    <th ng-click="vm.sort('level')">
+                      <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='level','fa fa-sort-desc':!vm.reverse && vm.sortKey==='level', 'fa fa-sort' : vm.sortKey!=='level'}"></i> Tipo de usuario
+                    </th>
+                    <th ng-click="vm.sort('createdOn')">
+                      <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='createdOn','fa fa-sort-desc':!vm.reverse && vm.sortKey==='createdOn', 'fa fa-sort' : vm.sortKey!=='createdOn'}"></i> Fecha de registro
+                    </th>
+                    <th>Acciones</th>
+                    <th>Perfil</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr ng-repeat="user in vm.users | orderBy:vm.sortKey:vm.reverse | filter: vm.filter">
+                    <td class="text-capitalize">{{user.name + " " +user.lastname}}</td>
+                    <td>{{user.email}}</td>
+                    <td class="text-center">
+                      <span ng-if="user.registered" class="green-text"><i class="fa fa-check-square" aria-hidden="true"></i></span>
+                      <span ng-if="!user.registered" class="red-text"><i class="fa fa-square" aria-hidden="true"></i></span>
+                    </td>
+                    <td>
+                      <span ng-if="user.registered">{{user.data.location.ciudad}}, {{user.data.location.estado}}, {{user.data.location.pais}}</span>
+                      <span ng-if="!user.registered"><i>El usuario no ha completado su perfil</i></span>
+                    </td>
+                    <td class="text-center">{{user.level}}</td>
+                    <td>{{user.createdOn | date : 'yyyy-MMM-dd'}}</td>
+                    <td class="text-center">
+                      <div class="dropdown">
+                        <a href="" data-toggle="dropdown" class="btn btn-sm btn-warning dropdown-toggle">Acciones <b class="caret"></b></a>
+                        <ul class="dropdown-menu dropdown-actions">
+                          <li>
+                            <a ng-click="alert(user._id)"><i class="fa fa-pencil-square" aria-hidden="true"></i> Editar</a>
+                          </li>
+                          <li>
+                            <a href="/administracion/usuarios/{{user._id}}/permisos"><i class="fa fa-lock" aria-hidden="true"></i> Cambiar permisos</a>
+                          </li>
+                          <li class="dropdown-danger">
+                            <a href=""><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Eliminar</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <a ng-href="/perfil/{{user._id}}" class="btn btn-xs btn-info" ng-if="user.registered"><i class="fa fa-external-link-square" aria-hidden="true"></i> Ver</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

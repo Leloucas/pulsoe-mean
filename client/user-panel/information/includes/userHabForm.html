@@ -1,0 +1,48 @@
+<form name="vm.userSkillForm" ng-submit="vm.saveUserHabilidad()" novalidate>
+  <br>
+  <div class="form-group">
+    <label for="skill">Administrativa *</label>
+    <textarea name="habilidad" id="habilidad" ng-model="vm.habilidad" class="form-control" placeholder="Sistemas, Métodos, Técnicas y/o Programas administrativos" ng-required> </textarea>
+  </div>
+  <p class="text-justify text-muted"><i>
+    Tip: Puede desplegarse completamente en este apartado, las opciones mostradas son para que usted capture sus habilidades técnicas (conocimiento y manejo de herramientas, programas de software, destreza física), administrativas (manejo de equipos de trabajo, nómina y repartición de bienes, recursos humanos) y sociales (trabajo en equipo, métodos de desarrollo, hablar en público, facilidad de palabra)..
+  </i></p>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <span class="btn badge b-black" ng-repeat="soft in vm.userSoftware" ng-click="vm.removeSoftware(soft)" title="Haga clic para eliminarlo de la lista"><small>{{soft.software}} - {{soft.nivel}}</small> <i class="fa fa-times-circle" style="color:#ff4500;" aria-hidden="true"></i></span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="skill">Software que maneja *</label>
+    <input type="text" name="software" id="software" ng-model="vm.software" class="form-control" placeholder="(Software computacional, lenguajes de programación, habilidades de computadoras)" ng-required>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="nivelHab">Nivel *</label>
+        <select name="nivelHab" id="nivelHab" ng-model="vm.nivelHab" class="form-control" ng-required>
+          <option value="" disabled selected>-- Por habilidad --</option>
+          <option value="basico">Con conocimientos</option>
+          <option value="intermedio">Con experiencia</option>
+          <option value="dominado">Dominado</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2 col-md-offset-10">
+      <button type="button" class="btn btn-default btn-xs pull-right" ng-click="vm.addSoftware()" ng-disabled="vm.userSkillForm.$invalid">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>Agregar software
+      </button>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-2">
+      <button class="btn btn-default pull-left" ng-click="vm.previousStep()"><i class="fa fa-chevron-left" aria-hidden="true"></i> Volver al registro anterior</button>
+    </div>
+
+    <div class="col-md-2 col-md-offset-8">
+      <button type="submit" class="btn btn-default pull-right" ng-disabled="!vm.userSkill.length">Registrar y continuar <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</form>

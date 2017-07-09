@@ -1,0 +1,291 @@
+<navigation-admin></navigation-admin>
+
+<section id="main-content" class="wrapper">
+  <!-- <div class="container"> -->
+    <div class="row white-bg">
+      <div class="container" style="width:100% !important">
+        <!-- perfil -->
+        <div id="wrapper">
+          <div id="page-wrapper" class="gray-bg">
+            <div class="wrapper wrapper-content">
+              <div class="">
+                <div class="row animated fadeInRight">
+                  <!-- perfil -->
+                  <div class="col-md-5">
+                      <div class="ibox float-e-margins">
+                          <div class="ibox-title">
+                            Perfil de  {{vm.user.name}} {{vm.user.lastname}}
+                          </div>
+                          <div class="ibox-content no-padding border-left-right">
+                              <div class="profile-pic">
+                                  <img alt="image" class="img-responsive center-half" ng-src="/img/users/avatar/{{vm.user.data.imagen}}" ng-if="vm.user.data.imagen">
+                                  <img alt="image" class="img-responsive center-half" ng-src="/img/avatar.png" ng-if="!vm.user.data.imagen">
+                                  <br>
+                              </div>
+                          </div>
+                          <div class="ibox-content profile-content">
+                              <h4 class="text-center"><strong>{{vm.user.name}} {{vm.user.lastname}}</strong></h4>
+                              <div class="text-center">
+
+                                  <h5>
+                                      <i class="fa fa-birthday-cake" aria-hidden="true"></i> {{vm.user.data.fechaNacimiento | date:'dd-MMM-yyyy'}}
+                                  </h5>
+                                  <h5>
+                                      <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                      <span class="capitalize">{{vm.user.data.sexo}}</span>,
+                                      <span class="capitalize">{{vm.user.data.estadoCivil}}</span>
+                                  </h5>
+                                  <p><i class="fa fa-map-marker"></i> {{vm.user.data.location.direccion}}</p>
+                                  <p>
+                                      <i class="fa fa-mobile" aria-hidden="true"></i> {{vm.user.data.celular}}
+                                  </p>
+                                  <p>
+                                      <i class="fa fa-phone-square" aria-hidden="true"></i> {{vm.user.data.telefono}}
+                                  </p>
+                              </div>
+                              <div class="row m-t-lg">
+                                  <div class="col-md-4">
+                                      <span ng-if="vm.user.data.facebook">
+                                          <a ng-href="{{vm.user.data.facebook}}" class="btn btn-primary btn-xs" target="_blank">
+                                              <i class="fa fa-facebook-official" aria-hidden="true"></i> Facebook
+                                          </a>
+                                      </span>
+                                  </div>
+                                  <div class="col-md-4">
+                                      <span ng-if="vm.user.data.twitter">
+                                          <a ng-href="{{vm.user.data.twitter}}" class="btn btn-primary btn-xs" target="_blank">
+                                              <i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter
+                                          </a>
+                                      </span>
+                                  </div>
+                                  <div class="col-md-4">
+                                      <span ng-if="vm.user.data.linkedin">
+                                          <a ng-href="{{vm.user.data.linkedin}}" class="btn btn-primary btn-xs" target="_blank">
+                                              <i class="fa fa-linkedin-square" aria-hidden="true"></i> LinkedIn
+                                          </a>
+                                      </span>
+                                  </div>
+                              </div>
+                              <br>
+                              <div class="user-button">
+                                  <div class="row">
+                                      <div class="col-md-8">
+                                          <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Enviar un mensaje</button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div><!-- /perfil -->
+                  </div>
+                  <div class="col-md-7">
+                      <!-- formacion -->
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                              Formación académica (último grado de estudios):
+                              {{vm.user.schooling.nivel}}
+                            </div>
+                            <div class="ibox-content border-left-right">
+                              <div class="row">
+                                <div class="col-md-3 col-sm-3">
+                                  <strong>Centro educativo:</strong><br>{{vm.user.schooling.centroEducativo}}
+                                </div>
+                                <div class="col-md-3 col-sm-3">
+                                  <strong>Estado:</strong> <br>{{vm.user.schooling.estado}}
+                                </div>
+                                <div class="col-md-3 col-sm-3">
+                                  <strong>Fecha de inicio:</strong> <br>{{vm.user.schooling.fechaInicio | date: "MM-yyyy"}}
+                                </div>
+                                <div class="col-md-3 col-sm-3" ng-if="vm.user.schooling.estado === 'terminado'">
+                                  <strong>Fecha de conclusión:</strong><br> {{vm.user.schooling.fechaFinal | date: "MM-yyyy"}}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div> <!-- /formacion -->
+                      <!-- habilidades -->
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                              Habilidades
+                            </div>
+                            <div class="ibox-content border-left-right">
+                              <blockquote>
+                                <p>{{vm.user.skills}}</p>
+                              </blockquote>
+                            </div>
+                          </div>
+                        </div><!-- /habilidades -->
+                      </div>
+                      <!-- adicional -->
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                              Información adicional
+                            </div>
+                            <div class="ibox-content">
+
+                              <h5><strong>Principales puestos de interés</strong></h5>
+                              <div class="row">
+                                <div class="col-md-4 col-sm-4" ng-repeat="position in vm.user.position">
+                                    {{position}}
+                                </div>
+                              </div>
+                              <br>
+                              <h5><strong>Principales áreas de interés</strong></h5>
+                              <div class="row">
+                                <div class="col-md-4 col-sm-4" ng-repeat="area in vm.user.areas">
+                                    {{area}}
+                                </div>
+                              </div>
+                              <br>
+                              <h5><strong>Valores que rigen su vida</strong></h5>
+                              <div class="row">
+                                <div class="col-md-4 col-sm-4" ng-repeat="valor in vm.user.values">
+                                    {{valor}}
+                                </div>
+                              </div>
+                              <br>
+                              <h5><strong>Expectativa de sueldo</strong></h5>
+                              <p>{{vm.user.salary.sueldo | currency}} - {{vm.user.salary.periodo}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div><!-- /adicional -->
+                    </div>
+                </div>
+                <div class="row">
+                  <!-- idiomas -->
+                  <div class="col-md-12">
+                      <div class="ibox float-e-margins">
+                          <div class="ibox-title">
+                              Idiomas
+                          </div>
+                          <div class="ibox-content border-left-right">
+                              <div class="row">
+                                  <div class="col-md-4 col-sm-6" ng-repeat="idioma in vm.user.languages">
+                                      <h5><strong>{{idioma.idioma}}</strong></h5>
+                                      <p>
+                                          Conversación: {{idioma.conversacion}}
+                                          <br>
+                                          Lectura: {{idioma.lectura}}
+                                          <br>
+                                          Redacción: {{idioma.redaccion}}
+                                      </p>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div><!-- /idiomas -->
+                </div>
+                <!-- capacitaciones -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                Capacitaciones
+                            </div>
+                            <div class="ibox-content border-left-right">
+                                <div class="row">
+                                    <div ng-repeat="cap in vm.user.courses" class="col-md-3 col-sm-4 course">
+                                        <h3>{{cap.evento}}</h3>
+                                        <h5>{{cap.area}}</h5>
+                                        <p class="well course-well smaller-text">{{cap.descripcion}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /capacitaciones -->
+                <!-- software -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                Software que maneja
+                            </div>
+                            <div class="ibox-content border-left-right">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3" ng-repeat="sof in vm.user.software">
+                                        <h4>{{sof.software}}</h4>
+                                        <p>{{sof.nivel}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /software -->
+
+                <!-- experiencia -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                Experiencia Profesional
+                            </div>
+                            <div class="ibox-content">
+                                <div class="feed-activity-list">
+                                    <div class="feed-element information" ng-repeat="exp in vm.user.experience">
+                                        <div class="media-body">
+
+                                            <h4><strong>{{exp.puesto}}</strong></h4>
+                                            <h5> <strong>{{exp.nombre}}</strong> </h5>
+                                            <p class="smaller-text">De {{exp.fechaInicio | date: "MMM-yyyy"}} a
+                                                <span ng-if="exp.fechaFinal">
+                                                    {{exp.fechaFinal | date: "MMM-yyyy"}}.
+                                                </span>
+                                                <span ng-if="!exp.fechaFinal">
+                                                    la fecha.
+                                                </span>
+                                            </p>
+                                            <h5>En el área de {{exp.area}}</h5>
+                                            <p>Sueldo percibido: {{exp.sueldo.cantidad | currency}} {{exp.sueldo.periodo}}</p>
+                                            <div class="well">
+                                                <p class="text-justify">{{exp.descripcion}}</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /experiencia -->
+
+                <!-- vacantes -->
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                Vacantes postuladas
+                            </div>
+                            <div class="ibox-content">
+                                <div class="feed-activity-list">
+                                    <div ng-show="vm.userVacantes">
+                                        <div class="feed-element information" ng-repeat="vac in vm.userVacantes">
+
+                                        </div>
+                                    </div>
+                                    <div ng-hide="vm.userVacantes">
+                                        <div class="information">
+                                            <h5>No hay vacantes postuladas</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /vacantes -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /perfil -->
+      </div>
+    </div>
+  <!-- </div> -->
+</section>

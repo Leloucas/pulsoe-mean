@@ -1,0 +1,45 @@
+<navigation></navigation>
+
+<section class="white-padding">
+    <div class="container">
+        <h2 class="servicio-title">{{vm.servicio.titulo}}</h2>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <img ng-src="{{vm.servicio.img}}" alt="{{vm.servicio.titulo}}" class="img-responsive img-centered">
+            </div>
+            <div class="col-md-6">
+                <p class="servicio-body">{{vm.servicio.text}}</p>
+                <div ng-show="vm.servicio.list">
+                    <ul>
+                        <li ng-repeat="item in vm.servicio.list">{{item}}</li>
+                    </ul>
+                </div>
+                <a ng-href="/servicios" class="btn btn-default btn-sm"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Servicios</a>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <h3 class="text-center">Otros servicios</h3>
+            <hr>
+            <div class="col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1">
+                <div class="well thumbnails">
+                    <div class="row">
+                        <div ng-repeat="item in vm.thumbnails">
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="imageholder">
+                                    <a ng-href="{{item.url}}">
+                                        <img ng-src="{{item.img}}" class="img-responsive" alt="{{item.title}}">
+                                        <div class="caption">{{item.title}}</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/.row-->
+    </div>
+</section>
+
+<main-footer></main-footer>

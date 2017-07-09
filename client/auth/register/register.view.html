@@ -1,0 +1,32 @@
+<navigation></navigation>
+
+<div class="middle-box text-center loginscreen animated fadeInDown">
+
+      <h3>Pulso</h3>
+      <p>¡Bienvenido a nuestra red de trabajo!</p>
+      <p class="text-muted small">¿Ya te encuentras registrado? Inicia sesión en la parte superior</p>
+      <hr>
+      <div class="alert alert-danger" ng-show="vm.error">
+        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <p class="small">{{vm.errormessage}}</p>
+      </div>
+      <form ng-submit="vm.onSubmit()" name="vm.registerForm">
+        <div class="form-group">
+          <!-- <label for="name">Nombre</label> -->
+          <input type="text" class="form-control" id="name" placeholder="Nombre" ng-model="vm.credentials.name">
+        </div>
+        <div class="form-group">
+          <!-- <label for="email">Correo electrónico</label> -->
+          <input type="email" class="form-control" id="email" placeholder="Correo electrónico" ng-model="vm.credentials.email">
+        </div>
+        <div class="form-group">
+          <!-- <label for="password">Contraseña (6 dígitos mínimo)</label> -->
+          <input type="password" class="form-control" id="password" placeholder="Contraseña (6 dígitos mínimo)" ng-minlength="6" ng-model="vm.credentials.password">
+        </div>
+        <div class="form-group">
+            <input type="checkbox" id="conditions" name="conditions" ng-model="vm.conditions" required><a href="#"> Términos y condiciones </a>
+        </div>
+        <button type="submit" class="btn btn-default btn-block" ng-disabled="vm.registerForm.$invalid">Unirse</button>
+      </form>
+
+</div>

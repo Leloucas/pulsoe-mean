@@ -1,0 +1,701 @@
+<navigation-user></navigation-user>
+<div id="wrapper">
+  <div id="page-wrapper" class="gray-bg">
+    <div class="wrapper wrapper-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7 col-md-offset-3">
+            <div class="ibox">
+              <div ng-switch="vm.step">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" ng-style="vm.stepWidth">
+                        </div>
+                    </div>
+                    <p class="text-center smaller-text"><i>Los campos marcados con * son obligatorios</i></p>
+                    <div ng-switch-when="1">
+                      <div class="">
+                          <div class="ibox-title">
+                            <h3>Datos</h3>
+                          </div>
+                          <div class="ibox-content">
+                            <!-- user perfil -->
+                            <form name="vm.userDataForm" ng-submit="vm.saveUserData()">
+                              <div class="form-group">
+                                <label for="">Fecha de nacimiento*</label>
+                                <div class="row">
+                                  <div class="col-md-3 col-sm-12">
+                                    <select name="diaNac" id="diaNac" ng-model="vm.birthday" ng-options="day as day for day in vm.days" class="form-control" required>
+                                      <option value="" selected>- Día -</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-5 col-sm-12">
+                                    <select name="mesNac" id="mesNac" class="form-control" ng-model="vm.birthmonth" ng-options="month as month.nombre for month in vm.months" required>
+                                      <option value="" selected>- Mes -</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-4 col-sm-12">
+                                    <select name="yearNac" id="yearNac" ng-model="vm.birthyear" ng-options="year as year for year in vm.years" class="form-control" required>
+                                      <option value="" selected>- Año -</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <p class="smaller-text"><strong>Sexo *</strong></p>
+                                <div class="radio">
+                                  <label>
+                                    <input type="radio" name="sexo" id="hombre" ng-model="vm.sexo" value="hombre"> Hombre
+                                  </label>
+                                  <label>
+                                    <input type="radio" name="sexo" id="mujer" ng-model="vm.sexo" value="mujer"> Mujer
+                                  </label>
+                                  <!--<label>
+                                    <input type="radio" name="sexo" id="otroSexo" ng-model="vm.sexo" value="otro" checked> No especificado
+                                  </label>-->
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="row">
+                                  <div class="col-md-8 col-sm-8">
+
+                                      <p class="smaller-text"><strong>Fotografía de perfil</strong></p>
+
+                                      <input type="file" ngf-select ng-model="vm.avatar" name="image" id="image" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="2MB" class="file inputfile"/>
+
+                                      <label class="control-label text-center" for="image"><i class="fa fa-upload" aria-hidden="true"></i> <span class="smaller-text">Seleccionar (tamaño máximo 2MB)</span></label>
+                                      <div ng-if="vm.userDataForm.image.$error.pattern" class="alert alert-danger">
+                                        <p class="smaller-text text-center">El archivo debe ser imagen (.jpeg, .png, .jpg)</p>
+                                      </div>
+                                      <div ng-if="vm.userDataForm.image.$error.maxSize" class="alert alert-danger">
+                                        <p class="smaller-text text-center">La imagen debe ser menor a 2MB</p>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-4 col-sm-4">
+                                    <div class="img-responsive">
+                                      <img class="img-responsive pull-right" ngf-src="vm.avatar || './img/avatar.png'"/>
+                                      {{vm.userDataForm.file}}
+                                      <i ng-show="vm.userDataForm.file.$error.maxSize">La imagen debe ser menor a 3MB</i>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="estadoCivil">Estado Civil*</label>
+                                <select name="estadoCivil" id="estadoCivil" ng-model="vm.estadoCivil" class="form-control" required>
+                                  <option value="" selected>- Seleccione uno de la lista -</option>
+                                  <option value="soltero">Soltero(a)</option>
+                                  <option value="casado">Casado(a)</option>
+                                  <option value="divorciado">Divorciado(a)</option>
+                                  <option value="viudo">Viudo(a)</option>
+                                  <option value="unionlibre">Unión libre</option>
+                                  <option value="otro">Otro</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="celular">Celular personal (10 dígitos)*</label>
+                                <input type="tel" name="celular" id="celular" ng-model="vm.celular" min="0" class="form-control" ng-maxlength="10" ng-minlength="10" pattern="[0-9]*" required>
+                                <br>
+                                <label for="telefono">Teléfono (para recados) o celular alternativo</label>
+                                <input type="tel" name="telefono" id="telefono" ng-model="vm.telefono" min="0" class="form-control" ng-maxlength="15" ng-minlength="10" pattern="[0-9]*" placeholder="(Incluya lada, añada 044 al inicio si es celular)">
+                              </div>
+                              <div class="form-group">
+                                <label for="pais">País *</label>
+                                <select ng-options="pais as pais.name for pais in vm.countries" name="pais" id="pais" ng-model="vm.pais" class="form-control" ng-change="vm.getEstado()" required>
+                                  <option value="" selected>- Seleccione de la lista -</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="estado">Estado *</label>
+                                <select ng-options="estado as estado.name for estado in vm.states" name="estado" id="estado" ng-model="vm.estado" class="form-control" ng-disabled="!vm.states" required>
+                                  <option value="" selected>-- Seleccione primero un país --</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="ciudad">Ciudad o localidad *</label>
+                                <input type="text" name="ciudad" id="ciudad" ng-model="vm.ciudad" class="form-control" placeholder="Ciudad de origen" ng-maxlength="50" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="address-input">Dirección *</label>
+                                <input type="hidden" name="lat" id="lat" ng-model="vm.lat" class="hidden">
+                                <input type="hidden" name="lng" id="lng" ng-model="vm.lng" class="hidden">
+                                <!-- <div><input name="address" ng-model="vm.address" id="address-input" placeholder="Seleccione su dirección de la lista" class="form-control" ng-model="chosenPlace" ng-blur="vm.callmap(vm.address)" googleplace/></div> -->
+                                <input type="text" id="address-input" ng-model="vm.chosenPlace" details="vm.chosenPlaceDetails" ng-blur="vm.callmap()" googleplace class="form-control"/>
+                                <i class="fa fa-map-marker fa-2x input-span input-social text-muted pull-right " aria-hidden="true"></i>
+                              </div>
+                              <div class="form-group">
+                                <label for="zip">Código Postal</label>
+                                <input type="tel" name="zip" id="zip" ng-model="vm.zip" class="form-control" ng-minlength="5" ng-maxlength="5" pattern="[0-9]*" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="colonia">Colonia</label>
+                                <input type="text" name="colonia" id="colonia" ng-model="vm.colonia" class="form-control" ng-maxlength="35" required>
+                              </div>
+                              <div class="row form-group">
+                                <div class="col-md-12">
+                                  <map zoom="{{vm.map.zoom}}" center="{{vm.map.center}}" options="{{vm.map.options}}">
+                                    <marker position="{{vm.marker.position}}" decimals="{{vm.marker.decimals}}" options="{{vm.marker.options}}"></marker>
+                                  </map>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="nacionalidad">Nacionalidad*</label>
+                                <select ng-options="pais as pais.name for pais in vm.countries" name="nacionalidad" id="nacionalidad" ng-model="vm.nacionalidad" class="form-control" required>
+                                    <option value="" selected>- País de origen -</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="inc">Marque si cuenta con alguna discapacidad</label>
+                                <input type="checkbox" name="inc" id="inc" ng-model="vm.inc">
+                                <textarea name="discapacidad" id="discapacidad" placeholder="(Describa aquí brevemente, máximo 100 caracteres)" ng-model="vm.discapacidad" ng-minlength="10" maxlength="100" ng-show="vm.inc" class="form-control"></textarea>
+                              </div>
+                              <div class="form-group">
+                                <label for="facebook">Perfil de Facebook (opcional)</label>
+                                <input type="url" name="facebook" id="facebook" ng-model="vm.facebook" placeholder="https://facebook.com..." class="form-control form-icon">
+                                <span class="fa fa-facebook-official fa-2x input-span input-social"></span>
+                              </div>
+                              <div class="form-group">
+                                <label for="twitter">Perfil de Twitter (opcional)</label>
+                                <input type="url" name="twitter" id="twitter" ng-model="vm.twitter" placeholder="https://twitter.com..." class="form-control form-icon">
+                                <span class="fa fa-twitter-square fa-2x input-span input-social"></span>
+                              </div>
+                              <div class="form-group">
+                                <label for="linkedin">Perfil de LinkedIn (opcional)</label>
+                                <input type="url" name="linkedin" id="linkedin" ng-model="vm.linkedin" placeholder="https://linkedin.com..." class="form-control form-icon">
+                                <span class="fa fa-linkedin-square fa-2x input-span input-social"></span>
+                              </div>
+                              <div class="form-group">
+                                <label for="licenciaConducir">Marque si cuenta con licencia de conducir</label>
+                                <input type="checkbox" name="licenciaConducir" id="licenciaConducir" ng-model="vm.licenciaConducir">
+                              </div>
+                              <div class="form-group">
+                                <label for="vehiculoPropio">Marque si posee vehículo propio</label>
+                                <input type="checkbox" name="vehiculoPropio" id="vehiculoPropio" ng-model="vm.vehiculoPropio">
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-2">
+                                    <!--<button class="btn btn-default pull-left"></button>-->
+                                </div>
+
+                                <div class="col-md-2 col-md-offset-8">
+                                    <button type="submit" class="btn btn-default pull-right" ng-disabled="vm.userDataForm.$invalid">Registrar y continuar <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                </div>
+                              </div>
+                              <!--<input type="date" name="fechaNac" id="fechaNac" ng-model="vm.fechaNac" class="form-control" required>-->
+                            </form>
+                            <!-- /user perfil -->
+                          </div>
+                      </div>
+                    </div>
+                    <div ng-switch-when="2">
+                        <div class="">
+                            <div class="ibox-title">
+                                <h3>Formación</h3>
+                            </div>
+                            <div class="ibox-content">
+                              <!-- formación -->
+                              <form name="vm.userFormacionForm" ng-submit="vm.saveUserFormacion()">
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <fieldset>
+                                      <legend><small>Académica</small></legend>
+                                      <div class="form-group">
+                                        <label for="centro">Centro Educativo *</label>
+                                        <input type="text" name="centro" id="centro" ng-model="vm.centro" placeholder="(Dónde realizó su último grado de estudios)" class="form-control" ng-required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="nivel">Nivel de estudios *</label>
+                                        <select name="nivel" id="nivel" ng-model="vm.nivel" class="form-control" ng-required>
+                                          <option value="" disabled selected>-- Último grado cursado --</option>
+                                          <option value="primaria">Primaria</option>
+                                          <option value="secundaria">Secundaria</option>
+                                          <option value="bachillerato">Bachillerato</option>
+                                          <option value="ba-tecnico">Bachillerato técnico</option>
+                                          <option value="tecnica">Carrera técnica</option>
+                                          <option value="licenciatura">Licenciatura</option>
+                                          <option value="maestria">Maestría</option>
+                                          <option value="doctorado">Doctorado</option>
+                                          <option value="otro">Otro</option>
+                                        </select>
+                                      </div>
+                                      <h5><strong>Estado *</strong></h5>
+                                      <div class="radio">
+                                        <label>
+                                          <input type="radio" name="estado" id="terminado" ng-model="vm.estado" value="terminado" checked> Terminado
+                                        </label>
+                                        <label>
+                                          <input type="radio" name="estado" id="cursando" ng-model="vm.estado" value="cursando"> Cursando
+                                        </label>
+                                        <label>
+                                          <input type="radio" name="estado" id="trunco" ng-model="vm.estado" value="trunco"> Trunco / Aplazado
+                                        </label>
+                                        <label>
+                                          <input type="radio" name="estado" id="otroEstado" ng-model="vm.estado" value="otro"> Otro
+                                        </label>
+                                      </div>
+                                      <label for="esInicio">Fecha de inicio *</label>
+                                      <div class="row">
+                                        <div class="col-md-5">
+                                          <select name="mesInicio" id="mesInicio" class="form-control" ng-model="vm.mesInicio" ng-options="month as month.nombre for month in vm.months" required>
+                                            <option value="" selected>- Mes -</option>
+                                          </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <select name="yearInicio" id="yearInicio" ng-model="vm.yearInicio" ng-options="year as year for year in vm.years" class="form-control" required>
+                                            <option value="" selected>- Año -</option>
+                                          </select>
+                                        </div>
+                                      </div>
+
+                                      <label for="esInicio">Fecha de salida *</label>
+                                      <div class="row">
+                                        <div class="col-md-5">
+                                          <select name="mesFinal" id="mesFinal" class="form-control" ng-model="vm.mesFinal" ng-options="month as month.nombre for month in vm.months" ng-disabled="vm.estado !== 'terminado'" >
+                                            <option value="" selected>- Mes -</option>
+                                          </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <select name="yearFinal" id="yearFinal" ng-model="vm.yearFinal" ng-options="year as year for year in vm.years" class="form-control" ng-disabled="vm.estado !== 'terminado'" >
+                                            <option value="" selected>- Año -</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <!--<div class="form-group">
+                                          <label for="esInicio">Fecha de inicio *</label>
+                                          <input type="month" name="inicio" id="esInicio" ng-model="vm.inicio" placeholder="yyyy-MM"  max="{{vm.year}}-12" class="form-control" ng-required>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="esFinal">Fecha de finalización *</label>
+                                          <input type="month" name="final" id="esFinal" ng-model="vm.final" placeholder="yyyy-MM" min='{{vm.inicio | date: "yyyy-MM"}}' max="{{vm.year}}-12" class="form-control" ng-required>
+                                      </div>-->
+                                    </fieldset>
+                                  </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <fieldset>
+                                      <legend><small>Manejo de idiomas</small></legend>
+                                      <div class="row">
+                                        <div class="col-md-12">
+                                          <span class="btn badge b-black" ng-repeat="lang in vm.userIdioma" ng-click="vm.removeLang(lang)" title="Haga clic para eliminarlo de la lista"><small>{{lang.idioma}}</small> <i class="fa fa-times-circle" style="color:#ff4500;" aria-hidden="true"></i></span>
+                                        </div>
+                                      </div>
+                                      <br>
+                                      <div class="form-group">
+                                        <label for="idioma">Idioma *</label>
+                                        <select ng-options="idioma as idioma for idioma in vm.languages" name="idioma" id="idioma" ng-model="vm.idioma" class="form-control" ng-required>
+                                          <option value="" disabled selected>-- Seleccione un idioma --</option>
+                                        </select>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-md-4">
+                                          <div class="form-group">
+                                            <label for="grado">Conversacional *</label>
+                                            <select name="conversacion" id="conversacion" ng-model="vm.conversacion" class="form-control" ng-required>
+                                              <option value="" disabled selected>-- Nivel --</option>
+                                              <option value="principiante">Principiante (10%)</option>
+                                              <option value="basico">Básico (25%)</option>
+                                              <option value="intermedio">Intermedio (50%)</option>
+                                              <option value="avanzado">Avanzado (80%)</option>
+                                              <option value="dominado">Dominado (100%)</option>
+                                              <option value="nativo">Nativo</option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <div class="form-group">
+                                            <label for="lectura">Lectura *</label>
+                                            <select name="lectura" id="lectura" ng-model="vm.lectura" class="form-control" ng-required>
+                                              <option value="" disabled selected>-- Nivel --</option>
+                                              <option value="principiante">Principiante (10%)</option>
+                                              <option value="basico">Básico (25%)</option>
+                                              <option value="intermedio">Intermedio (50%)</option>
+                                              <option value="avanzado">Avanzado (80%)</option>
+                                              <option value="dominado">Dominado (100%)</option>
+                                              <option value="nativo">Nativo</option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <div class="form-group">
+                                            <label for="redaccion">Redacción *</label>
+                                            <select name="redaccion" id="redaccion" ng-model="vm.redaccion" class="form-control" ng-required>
+                                              <option value="" disabled selected>-- Nivel --</option>
+                                              <option value="principiante">Principiante (10%)</option>
+                                              <option value="basico">Básico (25%)</option>
+                                              <option value="intermedio">Intermedio (50%)</option>
+                                              <option value="avanzado">Avanzado (80%)</option>
+                                              <option value="dominado">Dominado (100%)</option>
+                                              <option value="nativo">Nativo</option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-md-2 col-md-offset-10">
+                                          <button type="button" class="btn btn-default btn-xs pull-right" ng-click="vm.addIdioma()" ng-disabled="!vm.idioma || !vm.conversacion || !vm.lectura || !vm.redaccion">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar</button>
+                                        </div>
+                                      </div>
+                                    </fieldset>
+                                  </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <fieldset>
+                                      <legend><small>Capacitación</small></legend>
+                                       <div class="row">
+                                          <div class="col-md-12">
+                                            <span class="btn badge b-black" ng-repeat="cap in vm.userCapacitacion" ng-click="vm.removeCap(cap)" title="Haga clic para eliminarlo de la lista"><small>{{cap.evento}}</small> <i class="fa fa-times-circle" style="color:#ff4500;" aria-hidden="true"></i></span>
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="capacitacion">Evento</label>
+                                        <input type="text" name="capacitacion" id="capacitacion" ng-model="vm.capacitacion" placeholder="(Ejemplo: Optimización, Manejo de Inventarios, Inglés avanzado)" class="form-control" ng-required="">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="area">Área *</label>
+                                        <select name="area" id="area" ng-model="vm.area" class="form-control" ng-required>
+                                          <option value="" disabled selected>-- Seleccione la más acorde --</option>
+                                          <option value="comercializacion">Comercialización</option>
+                                          <option value="procesos">Procesos</option>
+                                          <option value="rrhh">Recursos Humanos</option>
+                                          <option value="finanzas">Finanzas</option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="capacitacionDesc">Descripción</label>
+                                        <textarea name="capacitacionDesc" id="capacitacionDesc" ng-model="vm.capacitacionDesc"  class="form-control" ng-required=""></textarea>
+                                      </div>
+                                      <p class="text-justify text-muted smaller-text"><i>
+                                          Tip: tome en cuenta congresos, convenciones, simposios, diplomados, seminarios, talleres, cursos, conferencias. Haga énfasis en su aprendizaje y las habilidades que ganó.
+                                      </i></p>
+                                      <div class="row">
+                                        <div class="col-md-2 col-md-offset-10">
+                                          <button type="button" class="btn btn-default btn-xs pull-right" ng-click="vm.addCapacitacion()" ng-disabled="!vm.capacitacionDesc || !vm.capacitacion || !vm.area">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </fieldset>
+                                  </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                  <div class="col-md-2">
+                                    <button class="btn btn-primary pull-left" ng-click="vm.previousStep()"><i class="fa fa-chevron-left" aria-hidden="true"></i> Volver al registro anterior</button>
+                                  </div>
+
+                                  <div class="col-md-2 col-md-offset-8">
+                                    <button type="submit" class="btn btn-default pull-right" ng-disabled="vm.userAcademicaForm.$invalid || !vm.userCapacitacion.length || !vm.userCapacitacion.length">Registrar y continuar <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                  </div>
+                                </div>
+                              </form>
+                              <!-- /formación -->
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-switch-when="3">
+                        <div class="">
+                            <div class="ibox-title">
+                                <h3>Experiencia</h3>
+                            </div>
+                            <div class="ibox-content">
+                                <!-- experiencia -->
+                                <form name="vm.userExperienciaForm" ng-submit="vm.saveUserExperiencia()" novalidate>
+                                  <div ng-hide="vm.noExp">
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <span class="btn badge b-black" ng-repeat="exp in vm.userJob" ng-click="vm.removeExp(exp)" title="Haga clic para eliminarlo de la lista"><small>{{exp.nombre}}</small> <i class="fa fa-times-circle" style="color:#ff4500;" aria-hidden="true"></i></span>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="form-group">
+                                          <label for="nombre">Nombre de la empresa *</label>
+                                          <input type="text" name="nombre" id="nombre" ng-model="vm.nomEmpresa" class="form-control"  ng-required="required">
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label for="giro">Giro de la empresa *</label>
+                                          <select name="giro" id="giro" ng-model="vm.giro" class="form-control" ng-required="required">
+                                            <option value="" selected>- Seleccione de la lista -</option>
+                                            <option value="comercializacion">Comercialización</option>
+                                            <option value="procesos">Procesos</option>
+                                            <option value="rrhh">Recursos Humanos</option>
+                                            <option value="finanzas">Finanzas</option>
+                                          </select>
+                                          <!--<input type="text" name="giro" id="giro" ng-model="vm.giro" class="form-control" placeholder="(Ejemplo: Administración, Construcción, Informática)" ng-required="required">-->
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label for="cargo">Puesto *</label>
+                                          <input type="text" name="cargo" id="cargo" ng-model="vm.cargo" class="form-control" ng-required="required">
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label for="area">Departamento *</label>
+                                          <input type="text" name="area" id="area" ng-model="vm.area" class="form-control" placeholder="" ng-required="required">
+                                        </div>
+
+                                        <label for="esInicio">Fecha de inicio *</label>
+                                        <div class="row">
+                                          <div class="col-md-5">
+                                            <select name="mesInicio" id="mesInicio" class="form-control" ng-model="vm.mesInicio" ng-options="month as month.nombre for month in vm.months" required>
+                                              <option value="" selected>- Mes -</option>
+                                            </select>
+                                          </div>
+                                          <div class="col-md-4">
+                                            <select name="yearInicio" id="yearInicio" ng-model="vm.yearInicio" ng-options="year as year for year in vm.years" class="form-control" required>
+                                              <option value="" selected>- Año -</option>
+                                            </select>
+                                          </div>
+                                        </div>
+
+                                        <label for="esInicio">Fecha de salida *</label>
+                                        <div class="row">
+                                          <div class="col-md-5">
+                                            <select name="mesFinal" id="mesFinal" class="form-control" ng-model="vm.mesFinal" ng-options="month as month.nombre for month in vm.months"  ng-disabled="vm.actual">
+                                              <option value="" selected>- Mes -</option>
+                                            </select>
+                                          </div>
+                                          <div class="col-md-4">
+                                            <select name="yearFinal" id="yearFinal" ng-model="vm.yearFinal" ng-options="year as year for year in vm.years" class="form-control"  ng-disabled="vm.actual">
+                                              <option value="" selected>- Año -</option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                          <input type="checkbox" name="actual" id="actual" ng-model="vm.actual" >
+                                          <label for="actual"><small>(Marque esta casilla si es su trabajo actual)</small></label>
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="descripcion">Descripción del trabajo desempeñado *</label> <span><small>{{vm.maxlenght - vm.expDesc.length}} restantes</small></span>
+                                          <textarea name="descripcion" id="descripcion" ng-model="vm.expDesc" class="form-control" placeholder="(Entre 30 o 600 caracteres)" ng-minlength="30" ng-maxlength="{{vm.maxlenght}}" ng-trim="false" rows="3" ng-required="required"></textarea>
+                                          <div ng-show="vm.userExperienciaForm.expDesc.$invalid && vm.userExperienciaForm.expDesc.$touched || vm.userExperienciaForm.expDesc.$touched && vm.expDesc.length < 30">
+                                            <p class="validation">Complete la descripción correctamente</p>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-md-8">
+                                            <div class="form-group">
+                                              <label for="sueldo">Sueldo percibido *</label>
+                                              <input type="number" name="sueldo" id="sueldo" ng-model="vm.sueldo" class="form-control form-icon" placeholder="Nominal, número cerrado" required>
+                                              <span class="fa fa-2x fa-usd input-span input-social" style="color: green"></span>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-4">
+                                            <div class="form-group">
+                                              <label for="periodo" style="visibility: hidden">periodo</label>
+                                              <select name="periodo" id="periodo" ng-model="vm.periodo" class="form-control" required>
+                                                <option value="" disabled selected>-- Periodo --</option>
+                                                <option value="semanal">Semanal</option>
+                                                <option value="quincenal">Quincenal</option>
+                                                <option value="mensual">Mensual</option>
+                                                <option value="anual">Anual</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-2 col-md-offset-10">
+                                        <button type="button" class="btn btn-default btn-xs pull-right" ng-click="vm.addExperiencia()" ng-disabled="vm.userExperienciaForm.$invalid || vm.expDesc.length < 30">
+                                          <i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                    <div class="col-md-2">
+                                      <button class="btn btn-primary pull-left" ng-click="vm.previousStep()"><i class="fa fa-chevron-left" aria-hidden="true"></i> Volver al registro anterior</button>
+                                    </div>
+                                    <div class="col-md-2 col-md-offset-8">
+                                      <button type="submit" class="btn btn-default pull-right" ng-disabled="!vm.userJob.length && !vm.noExp">Registrar y continuar <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                    </div>
+                                  </div>
+                                </form>
+                                <!-- /experiencia -->
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-switch-when="4">
+                        <div class="">
+                            <div class="ibox-title">
+                                <h3>Habilidades</h3>
+                            </div>
+                            <div class="ibox-content">
+                                <!-- habilidades -->
+                                <form name="vm.userSkillForm" ng-submit="vm.saveUserHabilidad()" novalidate>
+                                  <br>
+                                  <div class="form-group">
+                                    <label for="skill">Administrativa *</label>
+                                    <textarea name="habilidad" id="habilidad" ng-model="vm.habilidad" class="form-control" placeholder="Sistemas, Métodos, Técnicas y/o Programas administrativos" ng-required> </textarea>
+                                  </div>
+                                  <p class="text-justify text-muted smaller-text"><i>
+                                    Tip: Puede desplegarse completamente en este apartado, usted puede capturar sus habilidades basándose en los aspectos técnicos (conocimiento y manejo de herramientas, programas de software, destreza física), administrativos (manejo de equipos de trabajo, nómina y repartición de bienes, recursos humanos) y sociales (trabajo en equipo, métodos de desarrollo, hablar en público, facilidad de palabra)..
+                                  </i></p>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <span class="btn badge b-black" ng-repeat="soft in vm.userSoftware" ng-click="vm.removeSoftware(soft)" title="Haga clic para eliminarlo de la lista"><small>{{soft.software}} - {{soft.nivel}}</small> <i class="fa fa-times-circle" style="color:#ff4500;" aria-hidden="true"></i></span>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="skill">Software que maneja *</label>
+                                    <input type="text" name="software" id="software" ng-model="vm.software" class="form-control" placeholder="(Software computacional, lenguajes de programación, habilidades de computadoras)" ng-required>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label for="nivelHab">Nivel *</label>
+                                        <select name="nivelHab" id="nivelHab" ng-model="vm.nivelHab" class="form-control" ng-required>
+                                          <option value="" disabled selected>-- Por habilidad --</option>
+                                          <option value="basico">Con conocimientos</option>
+                                          <option value="intermedio">Con experiencia</option>
+                                          <option value="dominado">Dominado</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-2 col-md-offset-10">
+                                      <button type="button" class="btn btn-default btn-xs pull-right" ng-click="vm.addSoftware()" ng-disabled="!vm.software || !vm.nivelHab">
+                                        <i class="fa fa-plus-circle" aria-hidden="true"></i>Agregar software
+                                      </button>
+                                    </div>
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                    <div class="col-md-2">
+                                      <button class="btn btn-default pull-left" ng-click="vm.previousStep()"><i class="fa fa-chevron-left" aria-hidden="true"></i> Volver al registro anterior</button>
+                                    </div>
+
+                                    <div class="col-md-2 col-md-offset-8">
+                                      <button type="submit" class="btn btn-default pull-right" ng-disabled="!vm.userSoftware.length || !vm.habilidad">Registrar y continuar <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                    </div>
+                                  </div>
+                                </form>
+                                <!-- /habilidades -->
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-switch-when="5">
+                        <div class="">
+                            <div class="ibox-title">
+                                <h3>Adicional</h3>
+                            </div>
+                            <div class="ibox-content">
+                                <!-- info adicional -->
+                                <form name="vm.userAdicionalForm" ng-submit="vm.saveUserAdicional()">
+                                  <div class="row">
+                                    <div class="col-md-8">
+                                      <div class="form-group">
+                                        <label for="sueldo">Expectativa Salarial (promedio, puede variar)*</label>
+                                        <input type="number" name="sueldo" id="sueldo" ng-model="vm.sueldo" class="form-control form-icon" placeholder="Neto, número cerrado" required>
+                                        <span class="fa fa-2x fa-usd input-span input-social" style="color: green"></span>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <div class="form-group">
+                                        <label for="periodo" style="visibility: hidden">periodo</label>
+                                        <select name="periodo" id="periodo" ng-model="vm.periodo" class="form-control" required>
+                                          <option value="" disabled selected>-- Periodo --</option>
+                                          <option value="mensual">Mensual</option>
+                                          <option value="anual">Anual</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <label for="">Anote sus 3 principales puestos de interés*</label>
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                      <input type="text" name="puesto-1" id="puesto-1" ng-model="vm.userPuesto1" placeholder="Puesto 1" class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input type="text" name="puesto-2" id="puesto-2" ng-model="vm.userPuesto2" placeholder="Puesto 2" class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input type="text" name="puesto-3" id="puesto-3" ng-model="vm.userPuesto3" placeholder="Puesto 3" class="form-control">
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <label for="">Anote sus 3 principales áreas de interés*</label>
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                      <input type="text" name="area-1" id="area-1" ng-model="vm.userArea1" placeholder="Area 1" class="form-control" ng-required="true">
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input type="text" name="area-2" id="area-2" ng-model="vm.userArea2" placeholder="Area 2" class="form-control" ng-required="true">
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input type="text" name="area-3" id="area-3" ng-model="vm.userArea3" placeholder="Area 3" class="form-control" ng-required="true">
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <label for="valor">Anote los 3 valores que norman su vida*</label>
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                      <input type="text" name="valor-1" id="valor-1" placeholder="Valor 1" ng-model="vm.userValor1" class="form-control" ng-required="true">
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input type="text" name="valor-2" id="valor-2" placeholder="Valor 2" ng-model="vm.userValor2" class="form-control" ng-required="true">
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input type="text" name="valor-3" id="valor-3" placeholder="Valor 3" ng-model="vm.userValor3" class="form-control" ng-required="true">
+                                    </div>
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                    <div class="col-md-2">
+                                      <button class="btn btn-primary pull-left" ng-click="vm.previousStep()"><i class="fa fa-chevron-left" aria-hidden="true"></i> Volver al registro anterior</button>
+                                    </div>
+
+                                    <div class="col-md-2 col-md-offset-8">
+                                      <button type="submit" class="btn btn-default pull-right" ng-disabled="vm.userAdicionalForm.$invalid">Registrar y continuar <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                    </div>
+                                  </div>
+                                </form>
+                                <!-- /info adicional -->
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-switch-when="6">
+                        <div class="ibox-title">
+                            <h3 class="text-center">¡Todo listo!</h3>
+                        </div>
+                        <div class="ibox-content">
+                            <p class="text-center">Vamos a revisar su perfil</p>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <button class="btn btn-primary pull-left" ng-click="vm.previousStep()"><i class="fa fa-chevron-left" aria-hidden="true"></i> Volver al registro anterior</button>
+                                </div>
+
+                                <div class="col-md-2 col-md-offset-8">
+                                    <!-- <a ng-href="/perfil" class="btn btn-default pull-right">Ver perfil <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                    </a> -->
+                                    <button type="button" class="btn btn-default pull-right" ng-click="vm.submitInfo()">
+                                      Guardar y ver perfil <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-danger" ng-show="vm.error">
+                        <div class="panel-heading">Error</div>
+                        <div class="panel-body">
+                          <p class="smaller-text">{{vm.errormessage}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

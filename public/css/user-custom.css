@@ -1,0 +1,206 @@
+body{
+  background-color: inherit !important;
+  padding: 50px 0 0;
+}
+body, .navbar, h1, h2, h3, h4, h5{
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  color : #000;
+}
+.fa{
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+}
+.fa-2x {
+    font-size: 2em !important;
+}
+a, .top-navigation .nav > li.active > a, .top-navigation .nav > li a:hover, .top-navigation .nav > li a:focus{
+    color: #d8b600;
+}
+.nav > li > a {
+    color: #777;
+    font-weight: 600;
+    padding: 15px 20px;
+    font-size: 100%;
+    letter-spacing: 0.5px;
+}
+.nav > li > a:hover, .nav > li > a:focus {
+    background-color: inherit;
+    color: #d8b600;
+}
+.dropdown-menu > li > a {
+  letter-spacing: 0px;
+  font-size: 14px;
+}
+input.form-control, textarea.form-control{
+    border-radius: 2px;
+    border: 1px solid #777;
+}
+select.form-control{
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -o-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+
+    display: block;
+    padding: 10px 50px 10px 10px;
+    background: url(../../img/select.png) no-repeat 95% center;
+    background-color: #fff;
+    color: #222;
+    border-radius: 4px;
+    border: 2px solid #aaa;
+}
+.form-control:focus, .single-line:focus {
+    border-color: #1967be !important;
+}
+#page-wrapper{
+    padding: 0;
+}
+.wrapper p {
+  font-size: 14px;
+}
+#map{
+    width: 100%;
+    height: 300px;
+    float: left;
+}
+.navbar-fixed-top, .navbar-static-top {
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+.disp-inblock{
+    display: inline-block !important;
+}
+.b-black{
+    background-color: rgba(0,0,0, 0.85);
+}
+.no-margin{
+  margin : 0;
+}
+.half-width{
+    max-width: 50%;
+}
+.fifth-width{
+    max-width: 20%;
+}
+.tenth-width{
+    max-width: 10%;
+}
+.capitalize {
+   text-transform: capitalize;
+}
+.ibox-title{
+    font-weight: 700;
+}
+.navbar-brand{
+    font-size: 1.5em !important;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.8) !important;
+}
+textarea{
+    resize: vertical;
+}
+.ng-touched.ng-invalid{
+    border: 2px solid  #d22;
+}
+p.validation{
+    font-size: 0.9em;
+    color: #c7254e;
+    margin-top: 0;
+}
+.panel{
+  padding: 0;
+}
+.center-half{
+    margin: 0 auto;
+}
+/*.information > .btn-edit{
+    display: none;
+}
+.information:hover > .btn-edit{
+    display: block;
+}*/
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + label {
+	width: 100%;
+	font-size: 1em;
+	font-weight: bold;
+	color: #fff;
+	background-color: #263a4a;
+	display: inline-block;
+	cursor: pointer;
+	margin-bottom: 2%;
+	padding: 2% 5%;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+	color: #fff;
+	background-color: #003200;
+}
+
+.progress-bar{
+  background-color: #00c;
+}
+
+.profile-pic{
+    position: relative;
+    margin: 0 auto;
+    max-width: 250px;
+}
+.profile-pic label{
+    position: absolute;
+    top: 50%;
+    margin: 0 35%;
+    display: none;
+}
+.profile-pic:hover label{
+    display: block;
+}
+.course{
+  height: 15em;
+}
+.course .course-well{
+  height: 65%;
+}
+.show-hide {
+    -webkit-transition: 1s linear all;
+    transition: 1s linear all;
+    transition-delay: 1s;
+}
+.show-hide.ng-enter {
+  opacity: 0;
+}
+.show-hide.ng-enter-active {
+	opacity: 1;
+}
+.show-hide.ng-leave {
+  opacity: 1;
+}
+.show-hide.ng-leave-active {
+	opacity: 0;
+}
+.input-span {
+    float: left;
+    margin-left: 8px;
+    margin-right: 13px;
+    margin-top: -30px;
+    position: relative;
+    z-index: 2;
+}
+.form-icon{
+    padding-left: 8%;
+}
+.input-social {
+    margin-top: -1.3em;
+}
+.badge.b-black{
+  color: #fff;
+}

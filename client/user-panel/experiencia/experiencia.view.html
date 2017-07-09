@@ -1,0 +1,128 @@
+<navigation-user></navigation-user>
+
+<div id="wrapper">
+  <div id="page-wrapper" class="gray-bg">
+    <div class="wrapper wrapper-content">
+      <div class="container">
+        <div class="col-md-7 col-md-offset-3">
+          <div class="ibox">
+            <div class="ibox-title">
+                <h3>Experiencia</h3>
+            </div>
+            <div class="ibox-content">
+                <!-- experiencia -->
+                <form name="vm.experienciaForm" ng-submit="vm.saveExperiencia()" novalidate>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="nombre">Nombre de la empresa *</label>
+                        <input type="text" name="nombre" id="nombre" ng-model="vm.experiencia.nombre" class="form-control"  ng-required="required">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="giro">Giro de la empresa *</label>
+                        <select name="giro" id="giro" ng-model="vm.experiencia.giroEmpresa" class="form-control" ng-required="required">
+                          <option value="">- Seleccione de la lista -</option>
+                          <option value="comercializacion">Comercialización</option>
+                          <option value="procesos">Procesos</option>
+                          <option value="rrhh">Recursos Humanos</option>
+                          <option value="finanzas">Finanzas</option>
+                        </select>
+                        <!--<input type="text" name="giro" id="giro" ng-model="vm.giro" class="form-control" placeholder="(Ejemplo: Administración, Construcción, Informática)" ng-required="required">-->
+                      </div>
+
+                      <div class="form-group">
+                        <label for="cargo">Puesto *</label>
+                        <input type="text" name="cargo" id="cargo" ng-model="vm.experiencia.puesto" class="form-control" ng-required="required">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="area">Departamento *</label>
+                        <input type="text" name="area" id="area" ng-model="vm.experiencia.area" class="form-control" placeholder="" ng-required="required">
+                      </div>
+
+                      <label for="esInicio">Fecha de inicio *</label>
+                      <div class="row">
+                        <div class="col-md-5">
+                          <select name="mesInicio" id="mesInicio" class="form-control" ng-model="vm.experiencia.mesInicio" ng-options="month as month.nombre for month in vm.months track by month.mes"  required>
+                            <option value="">- Mes -</option>
+                          </select>
+                        </div>
+                        <div class="col-md-5 col-md-offset-2">
+                          <select name="yearInicio" id="yearInicio" ng-model="vm.experiencia.yearInicio" ng-options="year as year for year in vm.years" class="form-control" required>
+                            <option value="">- Año -</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <label for="esInicio">Fecha de salida *</label>
+                      <div class="row">
+                        <div class="col-md-5">
+                          <select name="mesFinal" id="mesFinal" class="form-control" ng-model="vm.experiencia.mesFinal" ng-options="month as month.nombre for month in vm.months track by month.mes"  ng-disabled="vm.actual">
+                            <option value="" >- Mes -</option>
+                          </select>
+                        </div>
+
+                        <div class="col-md-5 col-md-offset-2">
+                          <select name="yearFinal" id="yearFinal" ng-model="vm.experiencia.yearFinal" ng-options="year as year for year in vm.years" class="form-control"  ng-disabled="vm.actual">
+                            <option value="" >- Año -</option>
+                          </select>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="form-group">
+                        <input type="checkbox" name="actual" id="actual" ng-model="vm.actual" ng-checked="!vm.experiencia.mesFinal || !vm.experiencia.yearFinal">
+                        <label for="actual"><small>(Marque esta casilla si es su trabajo actual)</small></label>
+                      </div>
+                      <div class="form-group">
+                        <label for="descripcion">Descripción del trabajo desempeñado *</label> <span><small>{{600 - vm.experiencia.descripcion.length}} restantes</small></span>
+                        <textarea name="descripcion" id="descripcion" ng-model="vm.experiencia.descripcion" class="form-control" placeholder="(Entre 30 o 600 caracteres)" ng-maxlength="{{vm.maxlenght}}" ng-trim="false" rows="3" ng-required="required"></textarea>
+                        <div ng-show="vm.experiencia.descripcion.length < 30">
+                          <p class="validation">Complete la descripción correctamente</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <label for="sueldo">Sueldo percibido *</label>
+                            <input type="number" name="sueldo" id="sueldo" ng-model="vm.experiencia.sueldo.cantidad" class="form-control form-icon" placeholder="Nominal, número cerrado" required>
+                            <span class="fa fa-2x fa-usd input-span input-social" style="color: green"></span>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label for="periodo" style="visibility: hidden">periodo</label>
+                            <select name="periodo" id="periodo" ng-model="vm.experiencia.sueldo.periodo" class="form-control" required>
+                              <option value="" disabled selected>-- Periodo --</option>
+                              <option value="semanal">Semanal</option>
+                              <option value="quincenal">Quincenal</option>
+                              <option value="mensual">Mensual</option>
+                              <option value="anual">Anual</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-4 col-md-offset-8">
+                      <button type="submit" class="btn btn-default pull-right" ng-disabled="vm.experiencia.descripcion.length < 30 || vm.experienciaForm.$invalid">Guardar <i class="fa fa-check-circle-o" aria-hidden="true"></i></button>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="alert alert-success" ng-if="vm.message">
+                        {{vm.message}}
+                      </div>
+                    </div>
+                  </div>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

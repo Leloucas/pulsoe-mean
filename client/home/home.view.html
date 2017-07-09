@@ -1,0 +1,180 @@
+<navigation></navigation>
+
+<section id="carousel">
+    <div class="container">
+        <img ng-repeat="image in vm.carousel" ng-src="{{image.image}}" ng-hide="!vm.isCurrentSlide($index)" alt="{{image.description}}" class="slide img-responsive">
+
+        <a class="arrow prev" ng-click="vm.prevSlide()"></a>
+        <a class="arrow next" ng-click="vm.nextSlide()"></a>
+
+        <nav class="nav slideshow">
+            <div class="wrapper">
+                <ul class="dots">
+                    <li class="dot" ng-repeat="image in vm.carousel">
+                        <span  ng-class="{'active':isCurrentSlide($index)}" ng-click="vm.setCurrentSlide($index)">{{image.description}}</span>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="fixed-logo">
+            <img class="img-responsive" src="/img/banner/bajo800.png" alt="logo intro" >
+        </div>
+    </div>
+</section>
+<!-- About Section -->
+<section class="fondoblanco" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="margen">¿Por qué nosotros?</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <br>
+                <p class="text-justify">Elegir un proveedor confiable de Recursos Humanos requiere certificar
+                    su experiencia, infraestructura tecnológica, competencia técnica y visión empresarial.
+                    Permítanos presentarnos.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Compromiso -->
+<section class="b_black" id="compromiso">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="margen">Compromiso</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <br>
+                <p class="text-justify">Contribuir a la rentabilidad de nuestro cliente, proveyéndole personas
+                    competentes y servicios estratégicos complementarios para optimizar, retener y desarrollar a sus
+                    equipos humanos.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Trayectoria -->
+<section class="fondoblanco" id="trayectoria">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="margen">Trayectoria</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <br>
+                <p class="text-justify">Iniciamos operaciones en mayo 1986 como SISTEMAS INTEGRALES EN RECURSOS HUMANOS,
+                    S.C., dedicados a la búsqueda de personal y a proveer información de sueldos y compensaciones. Para
+                    fortalecer y diversificar nuestra actividad, en 1996 adicionamos PULSO EMPRESARIAL, S.A. de C.V.<br><br>
+                    A la fecha continuamos dando servicio a empresas grandes (industria automotriz, aeroespacial,
+                    alimentos; minería, tecnología de la información, de servicio y comerciales), nacionales y
+                    trasnacionales que cuentan con plantas de proceso o con representaciones comerciales en el noroeste
+                    de la República.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Mision Seccion -->
+<section class="b_black" id="misionvision">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="margen">Visión</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <br>
+                <p class="text-justify">Conocer a fondo el Mercado de Trabajo para influir profesionalmente en sus
+                    circunstancias y tendencias, capitalizar oportunidades de negocio y erigirnos en el referente
+                    obligado en Recursos Humanos.</p><br><br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="margen">Misión</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <br>
+                <p class="text-justify">Apoyar profesionalmente la actividad empresarial con intervenciones idóneas en
+                    Recursos Humanos, bajo un enfoque sistémico y altos estándares de calidad que cubran a plenitud las
+                    especificaciones del Cliente, le resuelvan problemas concretos y superen sus expectativas de
+                    servicio.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- Portfolio  -->
+<section class="fondoblanco" id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="margen">Nuestros servicios</h2>
+            </div>
+        </div>
+        <div class="row" style="margin-top:3em;">
+            <div ng-repeat="item in vm.portfolio">
+                <div class="col-sm-4 portfolio-item">
+                    <a ng-href="" class="portfolio-link" data-toggle="modal" ng-click="item.portfolio = !item.portfolio">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <p class="windowfont"><i class="fa fa-info fa-2x" aria-hidden="true"></i></p>
+                            </div>
+                        </div>
+                        <img ng-src="{{item.img}}" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>{{item.caption}}</h4>
+                    </div>
+                </div>
+                <!--.modal-->
+                <div modal-show="item.portfolio" class="modal fade modal-portfolio" role="dialog" aria-hidden="true" id="#{{item.modal.id}}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h3 class="text-center">{{item.modal.title}}</h3>
+                            </div>
+                            <div class="modal-body">
+                                <img ng-src="{{item.modal.img}}" alt="{{item.modal.title}}" class="img-responsive">
+                                <p class="modal-text">{{item.modal.text}}</p>
+                                <br>
+                                <h4 class="text-center"><a ng-click="item.portfolio = !item.portfolio; vm.proceed(item.modal.url)" href="">Ver más</a></h4>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+                <!--/.modal-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 text-center">
+                <a class="btn btn-md btn-default" ng-href="#!/servicios" role="button">Ver más</a>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<main-footer></main-footer>
+
+<!-- <div class="container">
+
+  <h1>Hello there</h1>
+
+  <p>Won't you please <a href="login">sign in</a> or <a href="/registro">register</a>?</p>
+
+</div> -->

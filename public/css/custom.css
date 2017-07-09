@@ -1,0 +1,25 @@
+/*Sticky footer style*/
+html{
+  position: relative;
+  min-height: 100%;
+}
+body{
+  margin-bottom: 90px;
+}
+.container-padding{
+  padding: 3% 0;
+}
+.padded{
+  padding-top: 30px;
+}
+.footer{
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  /*height: 90px;*/
+  background-color: #f5f5f5;
+  padding-top: 20px;
+}
+.footer a > img {
+  max-width: 25%;
+}

@@ -1,0 +1,46 @@
+<nav class="navbar navbar-fixed-top" role="navigation">
+  <div class="navbar-header">
+    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+        <i class="fa fa-reorder"></i>
+    </button>
+    <a href="/" class="navbar-brand">
+        Pulso
+    </a>
+  </div><!--/navbar header-->
+  <div id="navbar" class="collapse navbar-collapse">
+    <ul class="nav navbar-nav">
+      <li>
+        <a aria-expanded="false" role="button" href="/perfil"> Mi perfil</a>
+      </li>
+      <li class="dropdown">
+          <a aria-expanded="false" role="button" class="dropdown-toggle" data-toggle="dropdown"> Vacantes <span class="caret"></span></a>
+          <ul role="menu" class="dropdown-menu">
+              <li><a href="/vacantes">Ver vacantes</a></li>
+              <li class="divider"></li>
+              <li><a>Mis vacantes</a></li>
+              <li><a>Explorar</a></li>
+          </ul>
+      </li>
+    </ul>
+    <!-- perfil (si está iniciado) -->
+    <ul class="nav navbar-nav navbar-right no-margin">
+      <li>
+          <a aria-expanded="false" role="button" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-caret-square-o-down" aria-hidden="true"></i> {{ navvm.currentUser.name }} {{ navvm.currentUser.lastname }}
+          </a>
+          <ul role="menu" class="dropdown-menu">
+              <li>
+                  <a href="" ng-click="navvm.logout()">
+                      <i class="fa fa-sign-out"></i> Cerrar Sesión
+                  </a>
+              </li>
+              <li>
+                  <a aria-expanded="false" role="button" href="/">
+                      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver a la página de inicio
+                  </a>
+              </li>
+          </ul>
+      </li>
+    </ul>
+  </div>
+</nav>

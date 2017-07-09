@@ -1,0 +1,19 @@
+<h1>Angular Node File Upload</h1>
+  <form  ng-controller="MyCtrl as up" name="up.upload_form">
+          Single Image with validations
+      <input
+         type="file"
+         ngf-select
+         ng-model="up.file"
+         name="file"
+         ngf-pattern="'image/*'"
+         accept="image/*"
+         ngf-max-size="2MB"
+         />
+      Image thumbnail: <img ng-hide="up.file" style="width:100px;" ngf-src="up.file || './img/avatar.png'"/>
+      <i ng-show="up.upload_form.file.$error.required">*required</i><br>
+      <i ng-show="up.upload_form.file.$error.maxSize">File too large
+      {{up.file.size}}MB: max 20M</i>
+      <button type="submit" ng-click="up.submit()">submit</button>
+      <p>{{up.progress}}
+  </form>

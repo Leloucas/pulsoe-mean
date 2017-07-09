@@ -1,0 +1,44 @@
+<navigation></navigation>
+
+<section class="white-padding">
+    <div class="container">
+        <h1 class="text-center">Nuestros servicios</h1>
+        <div ng-repeat="item in vm.servicios">
+            <hr>
+            <div ng-if="$even">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a ng-href="{{item.url}}">
+                            <img ng-src="{{item.img}}" alt="{{item.titulo}}" title="{{item.titulo + item.desc}}" class="img-responsive img-centered">
+                        </a>
+                    </div>
+                    <br>
+                    <div class="col-md-6">
+                        <h3>{{item.titulo}}</h3>
+                        <p class="text-justify">{{item.text}}</p>
+                        <a ng-href="{{item.url}}" class="btn btn-default btn-sm"> Ver detalles</a>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <div ng-if="$odd">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>{{item.titulo}}</h3>
+                        <p class="text-justify">{{item.text}}</p>
+                        <a ng-href="{{item.url}}" class="btn btn-default btn-sm"> Ver detalles</a>
+                    </div>
+                    <br>
+                    <div class="col-md-6">
+                        <a ng-href="{{item.url}}">
+                            <img ng-src="{{item.img}}" alt="{{item.titulo}}" title="{{item.titulo}}" class="img-responsive img-centered">
+                        </a>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main-footer></main-footer>

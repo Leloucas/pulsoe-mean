@@ -1,0 +1,10 @@
+capacitacion:Array(),
+datos:Object,
+experiencia:Array(),
+formacion:Object,
+habilidad:"",
+idioma:Array(),
+position:Array(),
+salary:Object,
+software:Array(),
+values:Array()
