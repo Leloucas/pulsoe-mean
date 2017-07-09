@@ -1,14 +1,14 @@
 {
-  "name": "mean-app",
+  "name": "mean-pulso",
   "version": "1.0.0",
-  "description": "MEAN stack application",
+  "description": "Aplicación hecha en MEAN stack para una bolsa de trabajo",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "mean"
+    "mean", "pulso"
   ],
   "author": "King Claus",
   "license": "ISC",
