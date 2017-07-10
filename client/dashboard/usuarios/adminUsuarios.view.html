@@ -1,9 +1,9 @@
 <navigation-admin></navigation-admin>
 
 <section id="main-content" class="wrapper">
-  <div class="container">
+  <!-- <div class="container"> -->
     <div class="row white-bg">
-      <div class="col-md-11 col-sm-12">
+      <div class="col-md-12 col-sm-12">
 
         <h1>Lista de usuarios</h1>
         <div class="row">
@@ -59,7 +59,7 @@
                             <a ng-click="alert(user._id)"><i class="fa fa-pencil-square" aria-hidden="true"></i> Editar</a>
                           </li>
                           <li>
-                            <a href="/administracion/usuarios/{{user._id}}/permisos"><i class="fa fa-lock" aria-hidden="true"></i> Cambiar permisos</a>
+                            <a href="/administracion/usuarios/{{user._id}}"><i class="fa fa-lock" aria-hidden="true"></i> Cambiar permisos</a>
                           </li>
                           <li class="dropdown-danger">
                             <a href=""><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Eliminar</a>
@@ -79,5 +79,5 @@
 
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 </section>

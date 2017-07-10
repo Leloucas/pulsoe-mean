@@ -1,0 +1,26 @@
+<navigation-admin></navigation-admin>
+
+<section id="main-content" class="wrapper">
+  <div class="row white-bg">
+    <div class="container">
+      <div class="col-md-12 col-sm-12">
+        <h1>Permisos de usuario</h1>
+        <hr>
+        <form ng-submit="vm.saveUser()">
+          <div class="row">
+            <div class="col-md-3">
+              <label for="permiso" class="pull-right">Cambiar nivel</label>
+            </div>
+            <div class="col-md-4">
+              <select name="permiso" id="permiso" class="form-control" ng-model="vm.user.level">
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" name="button" class="btn btn-primary btn-md">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

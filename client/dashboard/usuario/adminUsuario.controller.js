@@ -22,5 +22,5 @@ function adminUsuarioCtrl($rootScope, $routeParams, $location, authentication, m
     })
     .catch(function(error){
       console.log(error);
-    })
+    });
 }

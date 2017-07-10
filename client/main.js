@@ -128,8 +128,8 @@ function config($routeProvider, $locationProvider, $qProvider){
      })
      .when('/administracion/usuarios/:userId', {
        css : ['/css/admin-style.css'],
-       templateUrl : 'dashboard/usuario/adminPerfil.view.html',
-       controller : 'adminUsuarioCtrl',
+       templateUrl : 'dashboard/permisos/adminPermisos.view.html',
+       controller : 'adminPermisosCtrl',
        controllerAs : 'vm',
        needsLogin : true,
        needsRegister : true,
@@ -144,14 +144,19 @@ function config($routeProvider, $locationProvider, $qProvider){
 
 function run($rootScope, $location, authentication) {
   var userRegistered = false;
+  var userLevel;
   $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
     if(authentication.isLoggedIn()){
       userRegistered = authentication.currentUser().registered;
+      userLevel = authentication.currentUser().level;
     } else {
       userRegistered = false;
     }
     if (nextRoute.needsLogin && !authentication.isLoggedIn()) {
       $location.path('/');
+    }
+    if (authentication.isLoggedIn() && nextRoute.adminOnly && userLevel !== 'admin') {
+      $location.path('/perfil');
     }
     if (!userRegistered && nextRoute.needsRegister && authentication.isLoggedIn()) {
       $location.path('/informacion');

@@ -9997,7 +9997,7 @@ span.customSelect.changed {
   display: none;
 }
 
-#sidebar.shrunk ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus{
+#sidebar.shrunk ul.sidebar-menu li a:hover, #sidebar.shrunk ul.sidebar-menu li a:focus{
   width: 20%;
   display: block;
 }
