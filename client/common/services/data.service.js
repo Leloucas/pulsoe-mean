@@ -12,11 +12,12 @@ function meanData ($http, authentication, Upload){
   };
 
 
-  var getProfile = function(){
-    return $http.get('/api/profile', headers);
-  };
 
-  var saveInfo = function(data, file){
+  function getProfile(){
+    return $http.get('/api/profile', headers).then(complete).catch(failed);
+  }
+
+  function saveInfo(data, file){
 
     var req = {
       url: '/api/profile',
@@ -28,9 +29,9 @@ function meanData ($http, authentication, Upload){
     return Upload.upload(req).then(complete).catch(failed);
 
     // return $http(req).then(complete).catch(failed);
-  };
+  }
 
-  var updatePic = function(file){
+  function updatePic(file){
     var req = {
       url: '/api/upload',
       method : 'PUT',

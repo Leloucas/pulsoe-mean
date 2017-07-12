@@ -62,6 +62,7 @@ module.exports.profileRead = function(req, res){
             .status(500)
             .json(err);
         } else {
+          console.log("sí lo encontró wacha");
           res
             .status(200)
             .json(user);

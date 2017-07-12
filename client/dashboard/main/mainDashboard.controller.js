@@ -1,6 +1,6 @@
 angular.module('meanPulso').controller('dashboardCtrl',dashboardCtrl);
 
-profileCtrl.$inject = ['$rootScope', '$location'];
+dashboardCtrl.$inject = ['$rootScope', '$location'];
 
 function dashboardCtrl($rootScope, $location){
   var vm = this;

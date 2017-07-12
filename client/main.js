@@ -74,15 +74,14 @@ function config($routeProvider, $locationProvider, $qProvider){
        needsLogin : true,
        needsRegister : false
      })
-     .when('/perfil', {
+     .when('/perfil',{
        css : ['/css/user-style.css', '/css/user-custom.css'],
-       templateUrl: '/profile/profile.view.html',
-       controller: 'profileCtrl',
-       controllerAs: 'vm',
+       templateUrl : '/profile/profile.view.html',
+       controller : 'profileCtrl',
+       controllerAs : 'vm',
        needsLogin : true,
-       needsRegister: true
+       needsRegister : false
      })
-
      .when('/perfil/:userId', {
        css : ['/css/admin-style.css', '/css/user-style.css', '/css/user-custom.css'],
        templateUrl : 'dashboard/usuario/adminPerfil.view.html',

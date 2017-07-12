@@ -152,6 +152,13 @@ userSchema.methods.validPassword = function(password){
 userSchema.methods.generateJWT = function(){
   var expiry = new Date();
   expiry.setDate(expiry.getDate() + 7);
+  try {
+    var imagen = this.data.imagen;
+  } catch(e) {
+    var imagen = null;
+  }
+
+  console.log(imagen, "imagen");
 
   return jwt.sign({
     _id : this._id,
@@ -160,7 +167,7 @@ userSchema.methods.generateJWT = function(){
     lastname : this.lastname,
     level : this.level,
     registered : this.registered,
-    avatar : this.data.imagen,
+    avatar : imagen,
     exp : parseInt(expiry.getTime() / 1000),
   }, process.env.JWTKey);
 };

@@ -39,6 +39,8 @@
                       <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver a la página de inicio
                   </a>
               </li>
+              <li class="divider" ng-if="navvm.currentUser.level === 'admin' || navvm.currentUser === 'master'"></li>
+              <li ng-if="navvm.currentUser.level === 'admin' || navvm.currentUser === 'master'"><a href="/administracion"><i class="fa fa-tachometer" aria-hidden="true"></i> Panel de administración</a></li>
           </ul>
       </li>
     </ul>

@@ -4,8 +4,6 @@ addExpCtrl.$inject = ['$rootScope','$location', 'meanData', '$routeParams', '$ti
 function addExpCtrl($rootScope, $location, meanData, $routeParams, $timeout){
   var vm = this;
 
-  console.log(meanData);
-
   $rootScope.header = "agregar experiencia";
 
   vm.year = new Date().getFullYear();
