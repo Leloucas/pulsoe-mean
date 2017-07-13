@@ -13,6 +13,7 @@ var ctrlAuth = require('../controllers/authentication.controller.js');
 var ctrlProfile = require('../controllers/profile.controller.js');
 var ctrlExp = require('../controllers/experience.controller.js');
 var ctrlAdmin = require('../controllers/administration.controller.js');
+var ctrlSoftware = require('../controllers/software.controller.js');
 
 router
   .route('/hotels')
@@ -65,6 +66,7 @@ router
 
 router
   .route('/users/:userId')
+  .put(ctrlUsers.isAdmin, ctrlUsers.usersUpdateOne)
   .get(ctrlUsers.isAdmin, ctrlUsers.usersGetOne);
 
 router
@@ -77,8 +79,21 @@ router
   .put(ctrlUsers.authenticate, ctrlProfile.uploadFile);
 
 router
+  .route('/userdata')
+  .get(ctrlUsers.authenticate, ctrlProfile.getUserData)
+  .put(ctrlUsers.authenticate, ctrlProfile.updateUserData);
+
+router
   .route('/experiencia')
   .post(ctrlUsers.authenticate, ctrlExp.expAddOne);
+
+router
+  .route('/software')
+  .post(ctrlUsers.authenticate, ctrlSoftware.softAddOne);
+
+router
+  .route('/software/:softId')
+  .delete(ctrlUsers.authenticate, ctrlSoftware.softDeleteOne);
 
 router
   .route('/experiencia/:expId')

@@ -66,7 +66,7 @@
                       <div class="row m-t-lg">
                           <div class="col-md-4">
                               <span ng-if="vm.user.data.facebook">
-                                  <a ng-href="{{vm.user.data.facebook}}" class="btn btn-primary btn-xs" target="_blank">
+                                  <a ng-href="{{vm.user.data.facebook}}" class="btn btn-primary btn-sm btn-block" target="_blank">
                                       <i class="fa fa-facebook-official" aria-hidden="true"></i> Facebook
                                   </a>
                               </span>
@@ -75,7 +75,7 @@
                           </div>
                           <div class="col-md-4">
                               <span ng-if="vm.user.data.twitter">
-                                  <a ng-href="{{vm.user.data.twitter}}" class="btn btn-primary btn-xs" target="_blank">
+                                  <a ng-href="{{vm.user.data.twitter}}" class="btn btn-primary btn-sm btn-block" target="_blank">
                                       <i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter
                                   </a>
                               </span>
@@ -83,8 +83,8 @@
                               <!--<h5><strong>28</strong> Following</h5>-->
                           </div>
                           <div class="col-md-4">
-                              <span ng-if="vm.user.data.linkedin">
-                                  <a ng-href="{{vm.user.data.linkedin}}" class="btn btn-primary btn-xs" target="_blank">
+                              <span ng-if="vm.user.data.linkedIn">
+                                  <a ng-href="{{vm.user.data.linkedIn}}" class="btn btn-primary btn-sm btn-block" target="_blank">
                                       <i class="fa fa-linkedin-square" aria-hidden="true"></i> LinkedIn
                                   </a>
                               </span>
@@ -95,8 +95,9 @@
                       <br>
                       <div class="user-button">
                           <div class="row">
-                              <div class="col-md-8">
-                                  <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Enviar un mensaje</button>
+                              <div class="col-md-12">
+                                  <!-- <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Enviar un mensaje</button> -->
+                                  <a href="/perfil/editar" class="btn btn-primary btn-sm btn-block"><i class="fa fa-pencil-square" aria-hidden="true"></i> Editar</a>
                               </div>
                           </div>
                       </div>
@@ -215,7 +216,7 @@
             <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        Capacitaciones
+                        Capacitación
                     </div>
                     <div class="ibox-content border-left-right">
                         <div class="row">
@@ -238,9 +239,29 @@
                     </div>
                     <div class="ibox-content border-left-right">
                         <div class="row">
-                            <div class="col-md-3 col-sm-3" ng-repeat="sof in vm.user.software">
+                            <div class="col-md-3 col-sm-3 software-card" ng-repeat="sof in vm.user.software">
                                 <h4>{{sof.software}}</h4>
+                                <button type="button" class="btn btn-xs btn-default btn-delete" ng-click="vm.deleteSoftware(sof._id)"><i class="fa fa-times-circle red-text" aria-hidden="true"></i> Eliminar</button>
+                                <hr>
                                 <p>{{sof.nivel}}</p>
+                            </div>
+                            <div class="col-md-3">
+                              <form name="vm.newSoftwareForm" ng-submit="vm.addSoftware()" class="addInProfile" ng-class="{'newForm' : !vm.newSoftwareForm.software.$touched || !vm.newSoftwareForm.nivelSoft.$touched, 'touchedForm' : vm.newSoftwareForm.software.$touched || vm.newSoftwareForm.nivelSoft.$touched}">
+                                <div class="form-group">
+                                  <input type="text" name="software" value="" ng-model="vm.newSoftwareName" class="form-control" placeholder="Agregar más" ng-minlength="2" required>
+                                </div>
+                                <div class="form-group">
+                                  <select name="nivelSoft" id="nivelSoft" ng-model="vm.nivelSoft" class="form-control" required>
+                                    <option value="" disabled>-- Nivel --</option>
+                                    <option value="basico">Con conocimientos</option>
+                                    <option value="intermedio">Con experiencia</option>
+                                    <option value="dominado">Dominado</option>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                  <button type="submit" class="btn btn-xs btn-primary" ng-disabled="vm.newSoftwareForm.$invalid"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar </button>
+                                </div>
+                              </form>
                             </div>
                         </div>
                     </div>
@@ -255,12 +276,12 @@
                     <div class="ibox-title">
                         Experiencia Profesional
                         <a href="/experiencia" class="btn btn-primary btn-xs pull-right">
-                          <i class="fa fa-plus-square" aria-hidden="true"></i> Agregar
+                          <i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar
                         </a>
                     </div>
                     <div class="ibox-content">
                         <div class="feed-activity-list">
-                            <div class="feed-element information" ng-repeat="exp in vm.user.experience">
+                            <div class="feed-element information" ng-repeat="exp in vm.user.experience | orderBy : '-exp.fechaInicio'">
                                 <div class="media-body">
 
                                     <h4><strong>{{exp.puesto}}</strong></h4>

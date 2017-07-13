@@ -1,0 +1,160 @@
+<navigation-user></navigation-user>
+
+<div id="wrapper">
+  <div id="page-wrapper" class="gray-bg">
+    <div class="wrapper wrapper-content">
+      <div class="container">
+        <div class="col-md-7 col-md-offset-3">
+          <div class="ibox">
+            <div class="ibox-title">
+              <h3>Datos</h3>
+            </div>
+            <div class="ibox-content">
+              <!-- user perfil -->
+              <form name="vm.userDataForm" ng-submit="vm.updateUser()">
+                <div class="form-group">
+                  <label for="">Fecha de nacimiento*</label>
+                  <div class="row">
+                    <div class="col-md-3 col-sm-12">
+                      <select name="diaNac" id="diaNac" ng-model="vm.birthday" ng-options="day as day for day in vm.days" class="form-control" required>
+                        <option value="" selected>- Día -</option>
+                      </select>
+                    </div>
+                    <div class="col-md-5 col-sm-12">
+                      <select name="mesNac" id="mesNac" class="form-control" ng-model="vm.birthmonth" ng-options="month as month.nombre for month in vm.months  track by month.mes" required>
+                        <option value="" selected>- Mes -</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                      <select name="yearNac" id="yearNac" ng-model="vm.birthyear" ng-options="year as year for year in vm.years" class="form-control" required>
+                        <option value="" selected>- Año -</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <p class="smaller-text"><strong>Sexo *</strong></p>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="sexo" id="hombre" ng-model="vm.user.sexo" value="hombre"> Hombre
+                    </label>
+                    <label>
+                      <input type="radio" name="sexo" id="mujer" ng-model="vm.user.sexo" value="mujer"> Mujer
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="estadoCivil">Estado Civil*</label>
+                  <select name="estadoCivil" id="estadoCivil" ng-model="vm.user.estadoCivil" class="form-control" required>
+                    <option value="" selected>- Seleccione uno de la lista -</option>
+                    <option value="soltero">Soltero(a)</option>
+                    <option value="casado">Casado(a)</option>
+                    <option value="divorciado">Divorciado(a)</option>
+                    <option value="viudo">Viudo(a)</option>
+                    <option value="unionlibre">Unión libre</option>
+                    <option value="otro">Otro</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="celular">Celular personal (10 dígitos)*</label>
+                  <input type="tel" name="celular" id="celular" ng-model="vm.user.celular" min="0" class="form-control" ng-maxlength="10" ng-minlength="10" pattern="[0-9]*" required>
+                  <br>
+                  <label for="telefono">Teléfono (para recados) o celular alternativo</label>
+                  <input type="tel" name="telefono" id="telefono" ng-model="vm.user.telefono" min="0" class="form-control" ng-maxlength="15" ng-minlength="10" pattern="[0-9]*" placeholder="(Incluya lada, añada 044 al inicio si es celular)">
+                </div>
+                <div class="form-group">
+                  <label for="pais">País *</label>
+                  <select ng-options="pais as pais.name for pais in vm.countries" name="pais" id="pais" ng-model="vm.user.location.pais" class="form-control" ng-change="vm.getEstado()" required>
+                    <option value="" selected>- Seleccione de la lista -</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="estado">Estado *</label>
+                  <select ng-options="estado as estado.name for estado in vm.states" name="estado" id="estado" ng-model="vm.user.location.estado" class="form-control" ng-disabled="!vm.states" required>
+                    <option value="" selected>-- Seleccione primero un país --</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="ciudad">Ciudad o localidad *</label>
+                  <input type="text" name="ciudad" id="ciudad" ng-model="vm.user.location.ciudad" class="form-control" placeholder="Ciudad de origen" ng-maxlength="50" required>
+                </div>
+                <div class="form-group">
+                  <label for="address-input">Dirección *</label>
+                  <input type="hidden" name="lat" id="lat" ng-model="vm.lat" class="hidden">
+                  <input type="hidden" name="lng" id="lng" ng-model="vm.lng" class="hidden">
+                  <!-- <div><input name="address" ng-model="vm.address" id="address-input" placeholder="Seleccione su dirección de la lista" class="form-control" ng-model="chosenPlace" ng-blur="vm.callmap(vm.address)" googleplace/></div> -->
+                  <input type="text" id="address-input" ng-model="vm.chosenPlace" details="vm.chosenPlaceDetails" ng-blur="vm.callmap()" googleplace class="form-control" required/>
+                  <i class="fa fa-map-marker fa-2x input-span input-social text-muted pull-right " aria-hidden="true"></i>
+                </div>
+                <div class="form-group">
+                  <label for="zip">Código Postal</label>
+                  <input type="tel" name="zip" id="zip" ng-model="vm.user.location.zip" class="form-control" ng-minlength="5" ng-maxlength="5" pattern="[0-9]*" required>
+                </div>
+                <div class="form-group">
+                  <label for="colonia">Colonia</label>
+                  <input type="text" name="colonia" id="colonia" ng-model="vm.user.location.colonia" class="form-control" ng-maxlength="35" required>
+                </div>
+                <div class="row form-group">
+                  <div class="col-md-12">
+                    <map zoom="{{vm.map.zoom}}" center="{{vm.map.center}}" options="{{vm.map.options}}">
+                      <marker position="{{vm.marker.position}}" decimals="{{vm.marker.decimals}}" options="{{vm.marker.options}}"></marker>
+                    </map>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="nacionalidad">Nacionalidad*</label>
+                  <select ng-options="pais as pais.name for pais in vm.countries" name="nacionalidad" id="nacionalidad" ng-model="vm.user.nacionalidad" class="form-control" required>
+                      <option value="" selected>- País de origen -</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="inc">Marque si cuenta con alguna discapacidad</label>
+                  <input type="checkbox" name="inc" id="inc" ng-model="vm.inc">
+                  <textarea name="discapacidad" id="discapacidad" placeholder="(Describa aquí brevemente, máximo 100 caracteres)" ng-model="vm.user.discapacidad" ng-minlength="10" maxlength="100" ng-show="vm.inc" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="facebook">Perfil de Facebook (opcional)</label>
+                  <input type="url" name="facebook" id="facebook" ng-model="vm.user.facebook" placeholder="https://facebook.com..." class="form-control form-icon">
+                  <span class="fa fa-facebook-official fa-2x input-span input-social"></span>
+                </div>
+                <div class="form-group">
+                  <label for="twitter">Perfil de Twitter (opcional)</label>
+                  <input type="url" name="twitter" id="twitter" ng-model="vm.user.twitter" placeholder="https://twitter.com..." class="form-control form-icon">
+                  <span class="fa fa-twitter-square fa-2x input-span input-social"></span>
+                </div>
+                <div class="form-group">
+                  <label for="linkedin">Perfil de LinkedIn (opcional)</label>
+                  <input type="url" name="linkedin" id="linkedin" ng-model="vm.user.linkedIn" placeholder="https://linkedin.com..." class="form-control form-icon">
+                  <span class="fa fa-linkedin-square fa-2x input-span input-social"></span>
+                </div>
+                <div class="form-group">
+                  <label for="licenciaConducir">Marque si cuenta con licencia de conducir</label>
+                  <input type="checkbox" name="licenciaConducir" id="licenciaConducir" ng-model="vm.user.licenciaConducir">
+                </div>
+                <div class="form-group">
+                  <label for="vehiculoPropio">Marque si posee vehículo propio</label>
+                  <input type="checkbox" name="vehiculoPropio" id="vehiculoPropio" ng-model="vm.user.vehiculoPropio">
+                </div>
+
+                <div class="row">
+                  <div class="col-md-2 col-md-offset-10">
+                      <button type="submit" class="btn btn-default pull-right" ng-disabled="vm.userDataForm.$invalid">Actualizar <i class="fa fa-check-circle-o" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="alert alert-success" ng-if="vm.message">
+                      {{vm.message}}
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <!-- /user perfil -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

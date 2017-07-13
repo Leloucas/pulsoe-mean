@@ -195,6 +195,36 @@ p.validation{
     position: relative;
     z-index: 2;
 }
+.software-card{
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+.software-card>.btn-delete {
+    float: right;
+    margin-top: -12%;
+    display: none;
+}
+.software-card:hover>.btn-delete {
+  display: inline-block;
+}
+.software-card>h4{
+  color: #fff;
+  font-weight: bold;
+}
+form.addInProfile{
+  padding: 10px;
+}
+form.addInProfile.newForm{
+  border: 1px dashed #999;
+  opacity: 0.5;
+}
+form.addInProfile.touchedForm{
+  border: none;
+  opacity: 1;
+}
 .form-icon{
     padding-left: 8%;
 }

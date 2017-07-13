@@ -82,6 +82,14 @@ function config($routeProvider, $locationProvider, $qProvider){
        needsLogin : true,
        needsRegister : false
      })
+     .when('/perfil/editar',{
+       css : ['/css/user-style.css', '/css/user-custom.css'],
+       templateUrl : '/user-panel/general/user-general.view.html',
+       controller : 'editInfoCtrl',
+       controllerAs : 'vm',
+       needsLogin : true,
+       needsRegister : false
+     })
      .when('/perfil/:userId', {
        css : ['/css/admin-style.css', '/css/user-style.css', '/css/user-custom.css'],
        templateUrl : 'dashboard/usuario/adminPerfil.view.html',

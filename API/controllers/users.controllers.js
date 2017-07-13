@@ -89,13 +89,15 @@ module.exports.usersGetOne = function(req, res){
 
   User
     .findById(userId)
+    // .select('-hash -salt -data -experience -schooling -software -languages -courses -values -skills -salary -position -areas')
+    .select('-hash -salt')
     .exec(function(err, doc){
       var response = {
         status : 200,
         message : doc
       };
       if (err){
-        console.log("Error finding hotel");
+        console.log("Error finding user");
         response.status = 500;
         response.message = err;
       } else if(!doc) {
@@ -107,6 +109,51 @@ module.exports.usersGetOne = function(req, res){
       res
         .status(response.status)
         .json(response.message);
+    });
+};
+
+module.exports.usersUpdateOne = function(req, res){
+  var userId = req.params.userId;
+  var level = req.body.level;
+  console.log("Adding level: '"+ level +"', to user: "+userId);
+
+  User
+    .findById(userId)
+    .exec(function(err, user){
+      var response = {
+        status : 200,
+        message : []
+      };
+      if(err){
+        console.log("Ha ocurrido un error");
+        response.status = 500;
+        reponse.message = err;
+      } else if(!user){
+        console.log("Usuario no encontrado", userId);
+        response.status = 404;
+        response.message = {
+          "message" : "Usuario no encontrado :" + userId
+        };
+      }
+      if(user){
+        user.level = level;
+
+        user.save(function(err, userUpdated){
+          if (err) {
+            res
+              .status(500)
+              .json(err);
+          } else {
+            res
+              .status(204)
+              .json();
+          }
+        });
+      } else {
+        res
+          .status(response.status)
+          .json(response.message);
+      }
     });
 };
 

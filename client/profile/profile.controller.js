@@ -37,4 +37,53 @@ function profileCtrl($rootScope, meanData, $window, authentication){
       $window.alert("Seleccione un archivo primero");
     }
   };
+
+  // vm.newSoftwareForm.$setPristine();
+
+  vm.addSoftware = function(){
+    var software = {
+      software : vm.newSoftwareName,
+      nivel : vm.nivelSoft
+    };
+    meanData.saveNewSoftware(software)
+      .then(function(response){
+        if(response.status === 201){
+          vm.user.software.push({
+            software : response.data.software,
+            nivel : response.data.nivel,
+            _id : response.data._id
+          });
+        }
+        vm.newSoftwareName = "";
+        vm.newSoftwareForm.software.$touched = false;
+        vm.nivelSoft = "";
+        vm.newSoftwareForm.nivelSoft.$touched = false;
+        vm.newSoftwareForm.$setPristine();
+      })
+      .catch(function(error){
+        console.log(error);
+    });
+  };
+
+  vm.deleteSoftware = function(id){
+    var choice = $window.confirm("Está a punto de eliminar el registro. \nESTÁ ACCIÓN NO SE PUEDE DESHACER. \n¿Desea continuar?");
+    if(choice){
+      meanData.deleteSoftware(id)
+        .then(function(response){
+          if(response.status === 204){
+            for(var i=0 ; i< vm.user.software.length; i+=1){
+              if(vm.user.software[i]._id === id){
+                vm.user.software.splice(i, 1);
+              }
+            }
+          } else if(response.status === 500){
+            console.log(response);
+            $window.alert("Error al eliminar registro");
+          }
+        })
+        .catch(function(error){
+          console.log(error);
+      });
+    }
+  };
 }

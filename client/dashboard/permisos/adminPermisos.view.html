@@ -18,9 +18,25 @@
               </select>
             </div>
           </div>
-          <button type="submit" name="button" class="btn btn-primary btn-md">Guardar</button>
+          <div class="row">
+            <div class="col-md-3">
+              <button type="submit" name="button" class="btn btn-primary btn-md" ng-disabled="vm.error">Guardar</button>
+            </div>
+          </div>
         </form>
+        <br>
+        <div class="row" ng-show="vm.response">
+          <div class="col-md-12 col-sm-12">
+            <div class="alert" ng-class="{'alert-success' : !vm.error, 'alert-danger' : vm.error}">
+              {{vm.message}}
+              <a href="/administracion/usuarios" class="btn btn-default btn-sm pull-right">
+                Volver
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
 </section>

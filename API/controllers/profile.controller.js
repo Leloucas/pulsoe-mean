@@ -62,10 +62,134 @@ module.exports.profileRead = function(req, res){
             .status(500)
             .json(err);
         } else {
-          console.log("sí lo encontró wacha");
           res
             .status(200)
             .json(user);
+        }
+      });
+  }
+};
+
+module.exports.getUserData = function(req, res){
+  if (!req.payload._id) {
+    res
+      .status(401)
+      .json({
+        "message" : "UnauthorizedError: private profile"
+      });
+  } else {
+    User
+      .findById(req.payload._id)
+      // .select('name lastname email profile')
+      .select('data')
+      .exec(function(err, user){
+        if (err) {
+          res
+            .status(500)
+            .json(err);
+        } else {
+          res
+            .status(200)
+            .json(user);
+        }
+      });
+  }
+};
+
+module.exports.updateUserData = function(req, res){
+  if (!req.payload._id) {
+    res
+      .status(401)
+      .json({
+        "message" : "UnauthorizedError: private profile"
+      });
+  } else {
+    var userId = req.payload._id;
+    console.log("Editing profile for user " + userId);
+    User
+      .findById(userId)
+      .exec(function(err, user){
+        var response = {
+          status : 200,
+          message : []
+        };
+        if(err){
+          console.log("Ha ocurrido un error");
+          response.status = 500;
+          response.message = err;
+        } else if(!user){
+          console.log("Usuario no encontrado", userId);
+          response.status = 404;
+          response.message = {
+            "message" : "Usuario no encontrado :" + userId
+          };
+        }
+        if(user){
+          var userData = req.body;
+          if(userData.fechaNacimiento){
+            user.data.fechaNacimiento = userData.fechaNacimiento;
+          }
+          if(userData.sexo){
+            user.data.sexo = userData.sexo;
+          }
+          if(userData.estadoCivil){
+            user.data.estadoCivil = userData.estadoCivil;
+          }
+
+          user.data.telefono = userData.telefono;
+
+          if(userData.celular){
+            user.data.celular = userData.celular;
+          }
+
+          if(userData.nacionalidad){
+            user.data.nacionalidad = userData.nacionalidad;
+          }
+
+          user.data.licenciaConducir = userData.licenciaConducir;
+
+          user.data.vehiculoPropio = userData.vehiculoPropio;
+
+          user.data.linkedIn = userData.linkedIn;
+
+          user.data.twitter = userData.twitter;
+
+          user.data.facebook = userData.facebook;
+
+          user.data.discapacidad = userData.discapacidad;
+
+          if(userData.location.direccion){
+            user.data.location.direccion = userData.location.direccion;
+          }
+          if(userData.location.coordenadas){
+            user.data.location.coordenadas = userData.location.coordenadas;
+          }
+          if(userData.location.pais){
+            user.data.location.pais = userData.location.pais;
+          }
+          if(userData.location.estado){
+            user.data.location.estado = userData.location.estado;
+          }
+          if(userData.location.ciudad){
+            user.data.location.ciudad = userData.location.ciudad;
+          }
+
+
+          user.save(function(err, userUpdated){
+            if (err) {
+              res
+                .status(500)
+                .json(err);
+            } else {
+              res
+                .status(204)
+                .json();
+            }
+          });
+        } else {
+          res
+            .status(response.status)
+            .json(response.message);
         }
       });
   }

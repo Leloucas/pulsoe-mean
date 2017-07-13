@@ -77,6 +77,8 @@ function expCtrl($rootScope, $location, meanData, $routeParams, $timeout){
       .catch(function(error){
         console.log(error)
       });
+    } else {
+      vm.message = "Hay un error en el formulario";
     }
 
   };
