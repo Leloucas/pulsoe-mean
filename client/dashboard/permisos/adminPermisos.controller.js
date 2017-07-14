@@ -1,8 +1,8 @@
 angular.module('meanPulso').controller('adminPermisosCtrl',adminPermisosCtrl);
 
-adminPermisosCtrl.$inject = ['$rootScope', '$routeParams', '$location', 'authentication', 'meanData'];
+adminPermisosCtrl.$inject = ['$rootScope', '$routeParams', '$location', 'authentication', 'meanData' , '$window'];
 
-function adminPermisosCtrl($rootScope, $routeParams, $location, authentication, meanData){
+function adminPermisosCtrl($rootScope, $routeParams, $location, authentication, meanData, $window){
   var vm = this;
 
   $rootScope.header = "Editar permisos";
@@ -22,6 +22,11 @@ function adminPermisosCtrl($rootScope, $routeParams, $location, authentication, 
       } else if(response.status === 200){
         vm.error = false;
         vm.user = response.data;
+      } else if(response.status === 403){
+        vm.error = true;
+        vm.response = true;
+        $window.alert("Usted no cuenta con permiso de usuario, favor de contactar al administrador");
+        authentication.logout();
       }
 
     })
