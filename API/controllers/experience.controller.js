@@ -60,7 +60,7 @@ module.exports.expAddOne = function(req, res){
         response.status = 500;
         response.message = err;
       } else if(!user) {
-        console.log("Hotel id not found in database", userId);
+        console.log("User id not found in database", userId);
         response.status = 404;
         response.message = {
           "message" : "User ID not found " + userId

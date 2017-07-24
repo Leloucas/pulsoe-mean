@@ -182,7 +182,6 @@ module.exports.authenticate = function(req, res, next){
 
 module.exports.isAdmin = function(req, res, next){
   var headerExists = req.headers.authorization;
-
   if(headerExists) {
     var token = req.headers.authorization.split(' ')[1];
     jwt.verify(token, process.env.JWTKey, function(error, decoded){
@@ -195,7 +194,6 @@ module.exports.isAdmin = function(req, res, next){
           });
       } else {
           var userId = decoded._id;
-          console.log(userId);
           if(userId){
             User
               .findById(userId)

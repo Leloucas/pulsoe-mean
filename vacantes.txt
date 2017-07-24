@@ -1,0 +1,13 @@
+Areas : 4
+
+Categorías : 26
+
+Nombre del puesto : String,
+
+Descripción :  String,
+ 
+País, estado, ciudad, jornada laboral, tipo de contrato, salario (opcional), posible fecha de contratación, 
+
+cantidad de experiencia, edades (mínima (16) y máxima), escolaridad, idiomas, 
+
+6621-57-9543

@@ -36,8 +36,8 @@ h1,h2,h3,h4,h5{
 
 label{
 
-    font-weight: 300;
-
+    /*font-weight: 300;*/
+    font-weight: bold;
 }
 
 ul li {
@@ -995,6 +995,8 @@ ul.sidebar-menu li.active a i {
 #main-content {
 
     margin-left: 14%;
+
+    width: 80%;
 
     float: left;
 
@@ -10016,6 +10018,11 @@ ul.sidebar-menu li a{
 
 .display-tip{
   display: none;
+}
+#sidebar > ul > li.active > ul.sub, #sidebar > ul > li > ul.sub > li > a {
+
+    width: 100%;
+
 }
 
 @media(max-width: 784px){

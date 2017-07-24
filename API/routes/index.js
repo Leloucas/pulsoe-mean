@@ -14,6 +14,8 @@ var ctrlProfile = require('../controllers/profile.controller.js');
 var ctrlExp = require('../controllers/experience.controller.js');
 var ctrlAdmin = require('../controllers/administration.controller.js');
 var ctrlSoftware = require('../controllers/software.controller.js');
+var ctrlAreas = require('../controllers/areas.controller.js');
+var ctrlCategorias = require('../controllers/categorias.controller.js');
 
 router
   .route('/hotels')
@@ -99,6 +101,29 @@ router
   .route('/experiencia/:expId')
   .get(ctrlUsers.authenticate, ctrlExp.expGetOne)
   .put(ctrlUsers.authenticate, ctrlExp.expUpdateOne);
+
+router
+  .route('/areas')
+  .get(ctrlUsers.isAdmin, ctrlAreas.areasGetAll)
+  .post(ctrlUsers.isAdmin, ctrlAreas.areasAddOne);
+
+router
+  .route('/areas/:areaId')
+  .get(ctrlUsers.isAdmin, ctrlAreas.areasGetOne)
+  .put(ctrlUsers.isAdmin, ctrlAreas.areasUpdateOne)
+  .patch(ctrlUsers.isAdmin, ctrlAreas.areasRestoreOne)
+  .delete(ctrlUsers.isAdmin, ctrlAreas.areasDeleteOne);
+
+router
+  .route('/areas/:areaId/categorias')
+  .get(ctrlUsers.isAdmin, ctrlCategorias.catGetall)
+  .post(ctrlUsers.isAdmin, ctrlCategorias.catAddOne);
+
+router
+  .route('/areas/:areaId/categorias/:catId')
+  .get(ctrlUsers.isAdmin, ctrlCategorias.catGetOne)
+  .put(ctrlUsers.isAdmin, ctrlCategorias.catUpdateOne)
+  .delete(ctrlUsers.isAdmin, ctrlCategorias.catDeleteOne);
 
 router
   .route('/administracion')

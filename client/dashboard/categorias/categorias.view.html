@@ -1,0 +1,71 @@
+<navigation-admin></navigation-admin>
+
+<section id="main-content" class="wrapper white-bg">
+  <h1>Categorías</h1>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <h3 ng-if="!vm.categorias.length">Parece que no hay categorías registradas. Comience creando una</h3>
+        <div class="row">
+          <div class="col-md-9 col-sm-9">
+            <input type="search" class="form-control" ng-model="vm.filter" placeholder="Buscar en la tabla">
+          </div>
+          <div class="col-md-3 col-sm-3">
+            <a href="/administracion/areas/{{vm.areaId}}/categorias/crear" class="pull-right btn btn-default btn-md">Crear</a>
+          </div>
+        </div>
+        <br>
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th ng-click="vm.sort('name')">
+                <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='name','fa fa-sort-desc':!vm.reverse && vm.sortKey==='name', 'fa fa-sort' : vm.sortKey!=='name'}"></i> Nombre
+              </th>
+              <th>
+                Descripción
+              </th>
+              <th ng-click="vm.sort('createdOn')">
+                <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='createdOn','fa fa-sort-desc':!vm.reverse && vm.sortKey==='createdOn', 'fa fa-sort' : vm.sortKey!=='createdOn'}"></i> Fecha de creación
+              </th>
+              <th>Acción</th>
+              <th class="dropdown-danger">Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-if="vm.categorias.length" ng-repeat="categoria in vm.categorias | orderBy:vm.sortKey:vm.reverse | filter: vm.filter">
+              <td class="text-capitalize">{{categoria.name}}</td>
+              <td class="text-justify">
+                <p class="smaller-text">{{categoria.descripcion}}</p>
+              </td>
+              <td>{{categoria.createdOn | date : 'yyyy-MMM-dd'}}</td>
+              <td class="text-center">
+                <a href="/administracion/areas/{{vm.areaId}}/categorias/{{categoria._id}}" class="btn btn-xs btn-default"><i class="fa fa-pencil-square" aria-hidden="true"></i> Editar</a>
+              </td>
+              <th class="text-center">
+                <button type="button" class="btn btn-danger btn-xs" ng-click="vm.deleteCategoria(categoria)"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Eliminar</button>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row" ng-show="vm.response">
+    <div class="col-md-12 col-sm-12">
+      <div class="alert" ng-class="{'alert-success' : !vm.error, 'alert-danger' : vm.error}">
+        <div class="row">
+          <div class="col-md-6">
+            <p>{{vm.message}}</p>
+          </div>
+          <div class="col-md-6">
+            <a href="/administracion/areas" class="btn btn-default btn-md pull-right" ng-show="!vm.error">
+              Volver
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

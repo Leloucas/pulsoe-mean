@@ -82,6 +82,50 @@ function meanData ($http, authentication, Upload){
     return $http.delete('/api/software/'+id, headers).then(complete).catch(failed);
   }
 
+  function getAllAreas(){
+    return $http.get('/api/areas', headers).then(complete).catch(failed);
+  }
+
+  function saveNewArea(area){
+    return $http.post('/api/areas', area, headers).then(complete).catch(failed);
+  }
+
+  function getOneArea(id){
+    return $http.get('/api/areas/'+id, headers).then(complete).catch(failed);
+  }
+
+  function updateArea(id, area){
+    return $http.put('/api/areas/'+id, area, headers).then(complete).catch(failed);
+  }
+
+  function restoreArea(id, area){
+    return $http.patch('/api/areas/'+id, area, headers).then(complete).catch(failed);
+  }
+
+  function deleteArea(id){
+    return $http.delete('/api/areas/'+id, headers).then(complete).catch(failed);
+  }
+
+  function getCategorias(id){
+    return $http.get('/api/areas/'+id+'/categorias', headers).then(complete).catch(failed);
+  }
+
+  function addCategoria(areaId, categoria){
+    return $http.post('/api/areas/'+areaId+'/categorias', categoria, headers).then(complete).catch(failed);
+  }
+
+  function getOneCategoria(areaId, catId){
+    return $http.get('/api/areas/'+areaId+'/categorias/'+catId, headers).then(complete).catch(failed);
+  }
+
+  function updateOneCategoria(areaId, catId, categoria){
+    return $http.put('/api/areas/'+areaId+'/categorias/'+catId, categoria, headers).then(complete).catch(failed);
+  }
+
+  function deleteCategoria(areaId, catId){
+    return $http.delete('/api/areas/'+areaId+'/categorias/'+catId, headers).then(complete).catch(failed);
+  }
+
   function complete(response){
     return response;
   }
@@ -104,6 +148,17 @@ function meanData ($http, authentication, Upload){
     saveNewSoftware : saveNewSoftware,
     deleteSoftware : deleteSoftware,
     getOneUser : getOneUser,
-    updateUser : updateUser
+    updateUser : updateUser,
+    getAllAreas : getAllAreas,
+    saveNewArea : saveNewArea,
+    getOneArea : getOneArea,
+    updateArea : updateArea,
+    restoreArea : restoreArea,
+    deleteArea : deleteArea,
+    getCategorias : getCategorias,
+    addCategoria : addCategoria,
+    getOneCategoria : getOneCategoria,
+    updateOneCategoria : updateOneCategoria,
+    deleteCategoria : deleteCategoria
   };
 }

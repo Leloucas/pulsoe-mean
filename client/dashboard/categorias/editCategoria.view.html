@@ -1,0 +1,39 @@
+<navigation-admin></navigation-admin>
+
+<section id="main-content" class="wrapper white-bg">
+  <h1>Editar categoría</h1>
+
+  <form name="vm.updateCat" ng-submit="vm.updateCategoria()">
+    <div class="form-group">
+      <label for="nombre">* Nombre</label>
+      <input type="text" name="nombre" id="nombre" ng-model="vm.categoria.name" class="form-control" maxlength="30" required>
+    </div>
+    <div class="form-group">
+      <label for="nombre">* Descripción</label>
+      <textarea name="nombre" id="nombre" ng-model="vm.categoria.descripcion" class="form-control" placeholder="(Opcional, máximo 150 caracteres)" maxlength="150"></textarea>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-default btn-md" ng-disabled="vm.updateCat.$invalid">Crear</button>
+    </div>
+  </form>
+
+  <br>
+
+  <div class="row" ng-show="vm.response">
+    <div class="col-md-12 col-sm-12">
+      <div class="alert" ng-class="{'alert-success' : !vm.error, 'alert-danger' : vm.error}">
+        <div class="row">
+          <div class="col-md-6">
+            <p>{{vm.message}}</p>
+          </div>
+          <div class="col-md-6">
+            <a ng-href="/administracion/areas/{{vm.areaId}}/categorias" class="btn btn-default btn-md pull-right" ng-show="!vm.error">
+              Volver
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

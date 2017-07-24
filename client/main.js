@@ -80,7 +80,7 @@ function config($routeProvider, $locationProvider, $qProvider){
        controller : 'profileCtrl',
        controllerAs : 'vm',
        needsLogin : true,
-       needsRegister : false
+       needsRegister : true
      })
      .when('/perfil/editar',{
        css : ['/css/user-style.css', '/css/user-custom.css'],
@@ -137,6 +137,69 @@ function config($routeProvider, $locationProvider, $qProvider){
        css : ['/css/admin-style.css'],
        templateUrl : 'dashboard/permisos/adminPermisos.view.html',
        controller : 'adminPermisosCtrl',
+       controllerAs : 'vm',
+       needsLogin : true,
+       needsRegister : true,
+       adminOnly : true
+     })
+     .when('/administracion/areas', {
+       css : ['/css/admin-style.css'],
+       templateUrl : 'dashboard/areas/areas.view.html',
+       controller : 'areasCtrl',
+       controllerAs : 'vm',
+       needsLogin : true,
+       needsRegister : true,
+       adminOnly : true
+     })
+     .when('/administracion/areas/crear', {
+       css : ['/css/admin-style.css'],
+       templateUrl : 'dashboard/area/createArea.view.html',
+       controller : 'createAreaCtrl',
+       controllerAs : 'vm',
+       needsLogin : true,
+       needsRegister : true,
+       adminOnly : true
+     })
+     .when('/administracion/areas/:areaId', {
+       css : ['/css/admin-style.css'],
+       templateUrl : 'dashboard/area/area.view.html',
+       controller : 'areaCtrl',
+       controllerAs : 'vm',
+       needsLogin : true,
+       needsRegister : true,
+       adminOnly : true
+     })
+     .when('/administracion/areas/:areaId/categorias', {
+       css : ['/css/admin-style.css'],
+       templateUrl : 'dashboard/categorias/categorias.view.html',
+       controller : 'categoriaCtrl',
+       controllerAs : 'vm',
+       needsLogin : true,
+       needsRegister : true,
+       adminOnly : true
+     })
+     .when('/administracion/areas/:areaId/categorias/crear', {
+       css : ['/css/admin-style.css'],
+       templateUrl : 'dashboard/categorias/createCategoria.view.html',
+       controller : 'createCatCtrl',
+       controllerAs : 'vm',
+       needsLogin : true,
+       needsRegister : true,
+       adminOnly : true
+     })
+     .when('/administracion/areas/:areaId/categorias/:catId', {
+       css : ['/css/admin-style.css'],
+       templateUrl : 'dashboard/categorias/editCategoria.view.html',
+       controller : 'editCategoriaCtrl',
+       controllerAs : 'vm',
+       needsLogin : true,
+       needsRegister : true,
+       adminOnly : true
+     })
+     .when('/administracion/areas/:areaId', {
+       css : ['/css/admin-style.css'],
+       templateUrl : 'dashboard/area/editArea.view.html',
+       controller : 'editAreaCtrl',
        controllerAs : 'vm',
        needsLogin : true,
        needsRegister : true,
