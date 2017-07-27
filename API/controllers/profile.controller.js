@@ -6,7 +6,7 @@ var fs = require('fs');
 //multers disk storage settings
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, global.__imageFolder)
+        cb(null, './public/img/users/avatar/')
     },
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();

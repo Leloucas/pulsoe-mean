@@ -16,6 +16,7 @@ var ctrlAdmin = require('../controllers/administration.controller.js');
 var ctrlSoftware = require('../controllers/software.controller.js');
 var ctrlAreas = require('../controllers/areas.controller.js');
 var ctrlCategorias = require('../controllers/categorias.controller.js');
+var ctrlVacantes = require('../controllers/vacantes.controller.js');
 
 router
   .route('/hotels')
@@ -128,5 +129,10 @@ router
 router
   .route('/administracion')
   .get(ctrlUsers.isAdmin, ctrlAdmin.frontPage);
+
+router
+  .route('/vacantes')
+  .get(ctrlVacantes.vacantesGetAll)
+  .post(ctrlUsers.isAdmin, ctrlVacantes.vacantesSaveOne);
 
 module.exports = router;

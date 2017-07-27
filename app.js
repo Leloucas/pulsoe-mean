@@ -11,8 +11,6 @@ var multer = require('multer');
 
 var app = express();
 
-global.__imageFolder = './public/img/users/avatar';
-
 var routes = require('./api/routes');
 
 app.set('port', 3000);

@@ -126,6 +126,21 @@ function meanData ($http, authentication, Upload){
     return $http.delete('/api/areas/'+areaId+'/categorias/'+catId, headers).then(complete).catch(failed);
   }
 
+  function getVacantes(){
+    return $http.get('/api/vacantes').then(complete).catch(failed);
+  }
+  function saveVacante(data, file){
+
+    var req = {
+      url: '/api/vacantes',
+      method: 'POST',
+      headers: {Authorization : 'Bearer '+ token},
+      data: {vacante: data, file: file}
+    };
+
+    return Upload.upload(req).then(complete).catch(failed);
+  }
+
   function complete(response){
     return response;
   }
@@ -159,6 +174,8 @@ function meanData ($http, authentication, Upload){
     addCategoria : addCategoria,
     getOneCategoria : getOneCategoria,
     updateOneCategoria : updateOneCategoria,
-    deleteCategoria : deleteCategoria
+    deleteCategoria : deleteCategoria,
+    getVacantes : getVacantes,
+    saveVacante : saveVacante
   };
 }

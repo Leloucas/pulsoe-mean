@@ -1,0 +1,104 @@
+<navigation-admin></navigation-admin>
+
+<section id="main-content" class="wrapper white-bg">
+  <h1>Áreas</h1>
+  <div class="row">
+    <div class="col-md-12">
+      <h3 ng-if="!vm.vacantes.length">Parece que no hay vacantes registradas. Comience creando una</h3>
+      <div class="row">
+        <div class="col-md-9 col-sm-9">
+          <input type="search" class="form-control" ng-model="vm.filter" placeholder="Buscar en la tabla">
+        </div>
+        <div class="col-md-3 col-sm-3">
+          <a href="/administracion/vacantes/crear" class="pull-right btn btn-default btn-md">Crear</a>
+        </div>
+      </div>
+      <br>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <th ng-click="vm.sort('puesto')">
+              <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='puesto','fa fa-sort-desc':!vm.reverse && vm.sortKey==='puesto', 'fa fa-sort' : vm.sortKey!=='puesto'}"></i> Puesto
+            </th>
+            <th ng-click="vm.sort('area')">
+              <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='area','fa fa-sort-desc':!vm.reverse && vm.sortKey==='area', 'fa fa-sort' : vm.sortKey!=='area'}"></i> Área
+            </th>
+            <th ng-click="vm.sort('categoria')">
+              <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='categoria','fa fa-sort-desc':!vm.reverse && vm.sortKey==='categoria', 'fa fa-sort' : vm.sortKey!=='categoria'}"></i> Categoría
+            </th>
+            <th ng-click="vm.sort('autor')">
+              <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='autor','fa fa-sort-desc':!vm.reverse && vm.sortKey==='autor', 'fa fa-sort' : vm.sortKey!=='autor'}"></i> Autor
+            </th>
+            <th ng-click="vm.sort('pais')">
+              <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='pais','fa fa-sort-desc':!vm.reverse && vm.sortKey==='pais', 'fa fa-sort' : vm.sortKey!=='pais'}"></i> País
+            </th>
+            <th ng-click="vm.sort('estado')">
+              <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='estado','fa fa-sort-desc':!vm.reverse && vm.sortKey==='estado', 'fa fa-sort' : vm.sortKey!=='estado'}"></i> Estado
+            </th>
+            <th ng-click="vm.sort('ciudad')">
+              <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='ciudad','fa fa-sort-desc':!vm.reverse && vm.sortKey==='ciudad', 'fa fa-sort' : vm.sortKey!=='ciudad'}"></i> Ciudad
+            </th>
+            <th ng-click="vm.sort('contrato')">
+              <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='contrato','fa fa-sort-desc':!vm.reverse && vm.sortKey==='contrato', 'fa fa-sort' : vm.sortKey!=='contrato'}"></i> Tipo de contrato
+            </th>
+            <th ng-click="vm.sort('fechaContrato')">
+              <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='fechaContrato','fa fa-sort-desc':!vm.reverse && vm.sortKey==='fechaContrato', 'fa fa-sort' : vm.sortKey!=='fechaContrato'}"></i> Fecha Contratación
+            </th>
+            <th ng-click="vm.sort('createdOn')">
+              <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='createdOn','fa fa-sort-desc':!vm.reverse && vm.sortKey==='createdOn', 'fa fa-sort' : vm.sortKey!=='createdOn'}"></i> Fecha de creación
+            </th>
+            <th>Accion</th>
+            <th>Accion</th>
+          </thead>
+          <tbody>
+            <tr ng-if="vm.vacantes.length" ng-repeat="vacante in vm.vacantes | orderBy:vm.sortKey:vm.reverse | filter:vm.filter">
+              <td class="text-capitalize">{{vacante.puesto}}</td>
+              <td>
+                <a ng-href="/administracion/areas/{{vacante.area._id}}">{{vacante.area.name}}</a>
+              </td>
+              <td>
+                <a ng-href="/administracion/areas/{{vacante.area._id}}/categorias/{{vacante.categoria._id}}">{{vacante.categoria.name}}</a>
+              </td>
+              <td>
+                <a ng-href="/perfil/{{vacante.autor._id}}">{{vacante.autor.name}} {{vacante.autor.lastname}}</a>
+              </td>
+              <td>
+                {{vacante.pais}}
+              </td>
+              <td>
+                {{vacante.estado}}
+              </td>
+              <td>
+                {{vacante.ciudad}}
+              </td>
+              <td class="text-capitalize">
+                {{vacante.tipoContrato}}
+              </td>
+              <td>
+                {{vacante.fechaContrato | date : 'yyyy-MMM-dd'}}
+              </td>
+              <td>
+                {{vacante.createdOn | date : 'yyyy-MMM-dd'}}
+              </td>
+              <td class="text-center">
+                <a ng-href="/administracion/vacantes/{{vacante._id}}" class="btn btn-xs btn-default"><i class="fa fa-pencil-square" aria-hidden="true"></i> Editar</a>
+              </td>
+              <td class="text-center">
+                <button type="button" class="btn btn-danger btn-xs" ng-click="vm.deleteVacante(vacante._id)" ng-if="!vacante.deletedAt"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Eliminar</button>
+                <button type="button" class="btn btn-success btn-xs" ng-click="vm.restoreVacante(vacante._id)" ng-if="vacante.deletedAt"><i class="fa fa-refresh" aria-hidden="true"></i> Restablecer</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div class="row" ng-show="vm.response">
+        <div class="col-md-12 col-sm-12">
+          <div class="alert" ng-class="{'alert-success' : !vm.error, 'alert-danger' : vm.error}">
+            <p>{{vm.message}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

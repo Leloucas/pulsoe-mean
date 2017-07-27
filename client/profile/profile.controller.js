@@ -26,8 +26,15 @@ function profileCtrl($rootScope, meanData, $window, authentication){
       meanData.updatePic(vm.file)
         .then(function(response){
           if (response.status === 201) {
-            $window.alert("Imagen actualizada");
-            $window.location.reload();
+            if(authentication.replaceToken(response.data)){
+              $window.alert("Imagen actualizada");
+              $window.location.reload();
+            } else {
+              $window.alert("Error al actualizar imagen");
+            };
+          } else if(response.status === 500){
+            console.log(response);
+            $window.alert("Error al actualizar imagen");
           }
         })
         .catch(function(error){

@@ -205,6 +205,33 @@ function config($routeProvider, $locationProvider, $qProvider){
        needsRegister : true,
        adminOnly : true
      })
+     .when('/administracion/vacantes', {
+       css : ['/css/admin-style.css'],
+       templateUrl : 'dashboard/vacantes/vacantes.view.html',
+       controller : 'vacantesCtrl',
+       controllerAs : 'vm',
+       needsLogin : true,
+       needsRegister : true,
+       adminOnly : true
+     })
+     .when('/administracion/vacantes/crear', {
+       css : ['/css/admin-style.css', '/css/user-style.css', '/css/user-custom.css'],
+       templateUrl : 'dashboard/vacantes/crearVacante.view.html',
+       controller : 'crearVacanteCtrl',
+       controllerAs : 'vm',
+       needsLogin : true,
+       needsRegister : true,
+       adminOnly : true
+     })
+     .when('/administracion/vacantes/:vacanteId', {
+       css : ['/css/admin-style.css'],
+       templateUrl : 'dashboard/vacantes/vacante.view.html',
+       controller : 'vacanteCtrl',
+       controllerAs : 'vm',
+       needsLogin : true,
+       needsRegister : true,
+       adminOnly : true
+     })
      .otherwise({redirectTo: '/'});
 
    // use the HTML5 History API
