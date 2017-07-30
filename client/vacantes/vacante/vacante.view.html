@@ -1,0 +1,78 @@
+<navigation></navigation>
+
+<section class="white-padding">
+  <div class="container">
+    <h3>{{vm.vacante.puesto}}</h3>
+    <p class="smaller-text">Por: <a ng-href="/vacantes?autor={{vm.vacante.autor._id}}"> {{vm.vacante.autor.name}} {{vm.vacante.autor.lastname}} </a></p>
+    <hr>
+    <div class="row">
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-3">
+            <img ng-src="/img/vacantes/{{vm.vacante.imagen}}" alt="{{vm.vacante.puesto}}" class="img-responsive" ng-if="vm.vacante.imagen">
+            <img ng-src="/img/avatar.png" alt="{{vm.vacante.puesto}}" class="img-responsive" ng-if="!vm.vacante.imagen">
+            <p class="smaller-text">Área: <a ng-href="/vacantes?area={{vm.vacante.area._id}}">{{vm.vacante.area.name}}</a></p>
+            <p class="smaller-text">Categoría: <a ng-href="/vacantes?area={{vm.vacante.area._id}}&categoria={{vm.vacante.categoria._id}}">{{vm.vacante.categoria.name}}</a></p>
+          </div>
+          <div class="col-md-9">
+            <p>{{vm.vacante.descripcion}}</p>
+            <p>El contrato será
+              <span ng-hide="vm.vacante.tipoContrato !== 'proyecto'">por </span>
+              <span ng-hide="vm.vacante.tipoContrato !== 'indefinido'">por tiempo </span>
+              <u>{{vm.vacante.tipoContrato}}</u>
+            </p>
+          </div>
+        </div>
+        <br>
+        <div class="row text-capitalize">
+          <div class="col-md-6">
+            <div class="text-center">
+              <p>
+                <strong>Ubicación:</strong> <br>
+                {{vm.vacante.ciudad}}, {{vm.vacante.estado}}, {{vm.vacante.pais}}
+              </p>
+              <p>
+                <strong>Edad mínima:</strong> <br>
+                {{vm.vacante.edadMin}}
+              </p>
+              <p>
+                <strong>Edad máxima: </strong> <br>
+                {{vm.vacante.edadMax}}
+              </p>
+              <p>
+                <strong>Escolaridad requerida:</strong><br>
+                <span ng-hide="!vm.vacante.escolaridad.titulo">{{vm.vacante.escolaridad.titulo}},</span> {{vm.vacante.escolaridad.grado}}
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="text-center">
+              <p>
+                <strong>Experiencia requerida</strong><br>
+                <span ng-if="vm.vacante.experiencia.cantidad === 0">Ninguna</span>
+                <span ng-if="vm.vacante.experiencia.cantidad !== 0">
+                  {{vm.vacante.experiencia.cantidad}}
+                  <span ng-if="vm.vacante.experiencia.periodo === 'year'">años.</span>
+                  <span ng-if="vm.vacante.experiencia.periodo === 'month'">meses.</span>
+                </span>
+              </p>
+              <p>
+                <strong>Jornada laboral:</strong><br>
+                {{vm.vacante.jornada.horas}} horas, turno {{vm.vacante.jornada.turno}}
+              </p>
+              <p ng-if="vm.vacante.salario">
+                <strong>Salario: </strong> <br>
+                {{vm.vacante.salario.cantidad}}, {{vm.vacante.salario.periodo}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <vacante-aside></vacante-aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main-footer></main-footer>

@@ -255,3 +255,71 @@ module.exports.isAdmin = function(req, res, next){
       })
   }
 };
+
+module.exports.getLevel = function(req, res, next){
+  var headerExists = req.headers.authorization;
+  if (headerExists) {
+    var token = req.headers.authorization.split(' ')[1];
+    jwt.verify(token, process.env.JWTKey, function(error, decoded){
+      if(error){
+        console.log(error, "error here");
+        res
+          .status(403)
+          .json({
+            "message" : "Página no autorizada"
+          });
+      } else {
+          var userId = decoded._id;
+          if(userId){
+            User
+              .findById(userId)
+              .select('-_id level')
+              .exec(function(err, doc){
+                if (err){
+                  console.log("Error finding user");
+                  res
+                    .status(500)
+                    .json(err);
+                } else if(!doc) {
+                  res
+                    .status(404)
+                    .json({
+                      "message" : "User ID not found"
+                    });
+                }
+                if (doc){
+                  var userLevel = doc.level;
+                  if(userLevel === 'admin' || userLevel === 'master'){
+                    console.log("Todo en orden");
+                    req.level = 'admin';
+                  } else {
+                    req.level = 'user';
+                  }
+                  next();
+                }
+              });
+          } else {
+            res
+              .status(403)
+              .json({
+                "message" : "El usuario proporcionado en el token es incorrecto"
+              });
+          }
+          //  if(decoded.level === 'admin' || decoded.level === 'master'){
+          //   req.payload = decoded;
+          //   req.user = decoded.name;
+          //   next();
+          // } else {
+          // res
+          //   .status(403)
+          //   .json({
+          //     "message" : "Usted no cuenta con permiso para ver esta página"
+          //   });
+        // }
+      }
+    });
+  } else {
+    req.level = 'visitor';
+    next();
+  }
+};

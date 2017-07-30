@@ -82,8 +82,16 @@ function meanData ($http, authentication, Upload){
     return $http.delete('/api/software/'+id, headers).then(complete).catch(failed);
   }
 
-  function getAllAreas(){
-    return $http.get('/api/areas', headers).then(complete).catch(failed);
+  function getAllAreas(count, offset){
+    if(count || offset){
+      return $http({
+        url: '/api/areas',
+        method: "GET",
+        params: {count: count, offset : offset}
+     }).then(complete).catch(failed);
+    } else {
+      return $http.get('/api/areas', headers).then(complete).catch(failed);
+    }
   }
 
   function saveNewArea(area){
@@ -126,8 +134,16 @@ function meanData ($http, authentication, Upload){
     return $http.delete('/api/areas/'+areaId+'/categorias/'+catId, headers).then(complete).catch(failed);
   }
 
-  function getVacantes(){
-    return $http.get('/api/vacantes').then(complete).catch(failed);
+  function getVacantes(params){
+    if(!angular.equals({}, params)){
+      return $http({
+        url: '/api/vacantes',
+        method: "GET",
+        params: params
+     }).then(complete).catch(failed);
+    } else {
+      return $http.get('/api/vacantes').then(complete).catch(failed);
+    }
   }
   function saveVacante(data, file){
 
@@ -136,6 +152,21 @@ function meanData ($http, authentication, Upload){
       method: 'POST',
       headers: {Authorization : 'Bearer '+ token},
       data: {vacante: data, file: file}
+    };
+
+    return Upload.upload(req).then(complete).catch(failed);
+  }
+
+  function getOneVacante(id){
+    return $http.get('/api/vacantes/'+id).then(complete).catch(failed);
+  }
+
+  function updateVacante(id, vacante, file){
+    var req = {
+      url : '/api/vacantes/'+id,
+      method : 'PUT',
+      headers : {Authorization : 'Bearer ' + token},
+      data : {vacante : vacante, file : file}
     };
 
     return Upload.upload(req).then(complete).catch(failed);
@@ -176,6 +207,8 @@ function meanData ($http, authentication, Upload){
     updateOneCategoria : updateOneCategoria,
     deleteCategoria : deleteCategoria,
     getVacantes : getVacantes,
-    saveVacante : saveVacante
+    saveVacante : saveVacante,
+    getOneVacante : getOneVacante,
+    updateVacante : updateVacante
   };
 }

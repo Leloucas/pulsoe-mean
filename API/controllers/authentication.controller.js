@@ -91,8 +91,6 @@ module.exports.updateInfo = function(req, res){
             .status(404)
             .json({"message" : "user not found"});
         } else {
-          console.log(doc.skills);
-          doc.skills = "I have none of them";
           doc.save(function(err, userUpdated){
             if (err){
               res

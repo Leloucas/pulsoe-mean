@@ -10025,6 +10025,33 @@ ul.sidebar-menu li a{
 
 }
 
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + label {
+	width: 100%;
+	font-size: 1em;
+	font-weight: bold;
+	color: #fff;
+	background-color: #263a4a;
+	display: inline-block;
+	cursor: pointer;
+	margin-bottom: 2%;
+	padding: 2% 5%;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+	color: #fff;
+	background-color: #003200;
+}
+
 @media(max-width: 784px){
   .display-tip{
     display: block;

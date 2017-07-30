@@ -87,10 +87,17 @@ var vacanteSchema =  new mongoose.Schema({
     default : ''
   },
   users : [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  views : Number,
+  views : {
+    type : Number,
+    default : 0
+  },
   createdOn : {
     type : Date,
     default : Date.now
+  },
+  expiresIn : {
+    type : Date,
+    default : new Date(+new Date() + 20*24*60*60*1000)
   },
   deletedAt : {
     type : Date,

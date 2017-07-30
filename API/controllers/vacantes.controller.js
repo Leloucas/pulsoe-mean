@@ -48,15 +48,27 @@ module.exports.vacantesGetAll = function(req, res){
   console.log("GET all vacantes");
   console.log(req.query);
 
-  var count = 100;
+  var count = '';
   var offset = 0;
+  var area = '';
+
+  var Query = Vacante
+    .find()
+    .populate('area', '_id name')
+    .populate('autor', '_id name lastname');
 
   if (req.query && req.query.offset) {
     offset = parseInt(req.query.offset, 10);
+    Query.skip(offset);
   }
 
   if(req.query && req.query.count){
     count = parseInt(req.query.count, 10);
+    Query.limit(count);
+  }
+
+  if (req.query && req.query.area) {
+    area = req.query.area;
   }
 
   if(isNaN(offset) || isNaN(count)){
@@ -68,12 +80,16 @@ module.exports.vacantesGetAll = function(req, res){
     return;
   }
 
-  Vacante
-    .find()
-    .populate('area', '_id name')
-    .populate('autor', '_id name lastname')
-    .skip(offset)
-    .limit(count)
+  Query.sort('-createdOn');
+  // Vacante
+  //   .find()
+  //   .populate('area', '_id name')
+  //   .populate('autor', '_id name lastname')
+  //   .skip(offset)
+  //   .limit(count)
+  //   .sort('-createdOn')
+  //   .select({area : area})
+  Query
     .exec(function(err, vacantes){
       if (err) {
         console.log("Error finding vacantes");
@@ -179,6 +195,7 @@ var _addVacante = function(req, res) {
       },
       idioma : vacante.idioma,
       software : vacante.software,
+      expiresIn : vacante.expiresIn,
       imagen : filename
     }, function(err, newVacante){
       if(err){
@@ -194,4 +211,161 @@ var _addVacante = function(req, res) {
       }
     });
     // res.status(200).json();
+};
+
+module.exports.vacantesGetOne = function(req, res){
+  var vacanteId = req.params.vacanteId;
+  console.log("GET the vacante", vacanteId);
+
+  var options = '';
+
+  if(req.level === 'user' || req.level === 'visitor'){
+    options += '-users';
+  }
+
+  Vacante
+    .findById(vacanteId)
+    .populate('area', '_id name')
+    .populate('autor', '_id name lastname')
+    .select(options)
+    .exec(function(err, vacante){
+      if(err){
+        console.log("Error finding vacante", vacanteId);
+        res
+          .status(500)
+          .json(err);
+      } else if(!vacante){
+        console.log("Vacante " + vacanteId + " not found");
+        res
+          .status(404)
+          .json({
+            "message" : "Vacante buscada no existe"
+          });
+      } else {
+        console.log("Found vacante: " + vacanteId);
+        res
+          .status(200)
+          .json(vacante);
+      }
+    });
+};
+
+module.exports.vacantesUpdateOne = function(req, res){
+  var vacanteId = req.params.vacanteId;
+
+  console.log("PUT the vacante " + vacanteId);
+
+  upload(req, res, function(err){
+    if(err){
+      res
+        .status(500)
+        .json(err);
+    } else {
+      console.log("Updating vacante");
+      var newVacante = req.body.vacante;
+      console.log(newVacante, "aquí está recibida", req.file);
+
+      var filename;
+
+      if(req.file){
+        filename = req.file.filename;
+      }
+
+      Vacante
+        .findById(vacanteId)
+        .exec(function(err, vacante){
+          var response = {
+            status : 200,
+            message : []
+          };
+
+          if(err){
+            console.log("Ha ocurrido un error")
+          } else if (!vacante){
+            console.log("Vacante no encontrada", vacanteId);
+            response.status = 404;
+            response.message = {
+              "message" : "Vacante no encontrada: " + vacanteId
+            };
+          }
+          if(vacante){
+            console.log(vacante, "antes");
+            if(newVacante.puesto){
+              vacante.puesto = newVacante.puesto;
+            }
+            if(newVacante.area){
+              vacante.area = newVacante.area;
+            }
+            if(newVacante.categoria){
+              vacante.categoria = newVacante.categoria;
+            }
+            if(newVacante.descripcion){
+              vacante.descripcion = newVacante.descripcion;
+            }
+            if(newVacante.pais){
+              vacante.pais = newVacante.pais;
+            }
+            if(newVacante.estado){
+              vacante.estado = newVacante.estado;
+            }
+            if(newVacante.ciudad){
+              vacante.ciudad = newVacante.ciudad;
+            }
+            if(newVacante.jornada){
+              vacante.jornada = newVacante.jornada;
+            }
+            if(newVacante.tipoContrato){
+              vacante.tipoContrato = newVacante.tipoContrato;
+            }
+
+            vacante.salario = newVacante.salario;
+
+            vacante.fechaContrato = newVacante.fechaContrato;
+
+            vacante.experiencia = newVacante.experiencia;
+
+            if(newVacante.edadMin){
+              vacante.edadMin = newVacante.edadMin;
+            }
+            if(newVacante.edadMax){
+              vacante.edadMax = newVacante.edadMax;
+            }
+            if(newVacante.escolaridad){
+              vacante.escolaridad = newVacante.escolaridad;
+            }
+
+            vacante.idioma = newVacante.idioma;
+
+            vacante.software = newVacante.software;
+
+            if(newVacante.expiresIn){
+              vacante.expiresIn = newVacante.expiresIn;
+            }
+
+            if(filename){
+              vacante.imagen = filename;
+            }
+
+            console.log(vacante, "después");
+
+            vacante.save(function(err, vacanteUpdated){
+              if(err){
+                res
+                  .status(500)
+                  .json(err)
+              } else {
+                res
+                  .status(201)
+                  .json();
+              }
+            });
+          } else {
+            res
+              .status(response.status)
+              .json(response.message);
+          }
+        });
+    }
+  });
+
 };

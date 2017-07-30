@@ -4,10 +4,32 @@ var Area = mongoose.model('Area');
 module.exports.areasGetAll = function(req, res){
   console.log('GET the areas');
 
+  var count;
+  var offset;
+
+  if (req.query && req.query.offset) {
+    offset = parseInt(req.query.offset, 10);
+  }
+
+  if(req.query && req.query.count){
+    count = parseInt(req.query.count, 10);
+  }
+
+  if(isNaN(offset)){
+    offset = '';
+  }
+
+  if(isNaN(count)){
+    count = '';
+  }
+  
   Area
     // .find({ 'deletedAt': null })
     .find()
     .sort('createdOn')
+    .limit(count)
+    .skip(offset)
+    .sort('-createdOn')
     .exec(function(err, areas){
       if (err) {
         console.log("Error finding areas");

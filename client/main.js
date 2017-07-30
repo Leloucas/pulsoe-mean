@@ -224,13 +224,27 @@ function config($routeProvider, $locationProvider, $qProvider){
        adminOnly : true
      })
      .when('/administracion/vacantes/:vacanteId', {
-       css : ['/css/admin-style.css'],
+       css : ['/css/admin-style.css', '/css/user-style.css', '/css/user-custom.css'],
        templateUrl : 'dashboard/vacantes/vacante.view.html',
        controller : 'vacanteCtrl',
        controllerAs : 'vm',
        needsLogin : true,
        needsRegister : true,
        adminOnly : true
+     })
+     .when('/vacantes',{
+       templateUrl : 'vacantes/main/main.view.html',
+       controller : 'mainVacanteCtrl',
+       controllerAs : 'vm',
+       needsLogin : false,
+       needsRegister : false
+     })
+     .when('/vacantes/:vacanteId',{
+       templateUrl : 'vacantes/vacante/vacante.view.html',
+       controller : 'showVacanteCtrl',
+       controllerAs : 'vm',
+       needsLogin : false,
+       needsRegister : false
      })
      .otherwise({redirectTo: '/'});
 

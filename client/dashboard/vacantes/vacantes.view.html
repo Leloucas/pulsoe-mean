@@ -1,7 +1,7 @@
 <navigation-admin></navigation-admin>
 
 <section id="main-content" class="wrapper white-bg">
-  <h1>Áreas</h1>
+  <h1>Vacantes</h1>
   <div class="row">
     <div class="col-md-12">
       <h3 ng-if="!vm.vacantes.length">Parece que no hay vacantes registradas. Comience creando una</h3>
@@ -47,6 +47,9 @@
             <th ng-click="vm.sort('createdOn')">
               <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='createdOn','fa fa-sort-desc':!vm.reverse && vm.sortKey==='createdOn', 'fa fa-sort' : vm.sortKey!=='createdOn'}"></i> Fecha de creación
             </th>
+            <th ng-click="vm.sort('expiresIn')">
+              <i class="fa fa-sort" aria-hidden="true" ng-class="{'fa fa-sort-asc':vm.reverse && vm.sortKey==='expiresIn','fa fa-sort-desc':!vm.reverse && vm.sortKey==='expiresIn', 'fa fa-sort' : vm.sortKey!=='expiresIn'}"></i> Fecha de expiración
+            </th>
             <th>Accion</th>
             <th>Accion</th>
           </thead>
@@ -79,6 +82,9 @@
               </td>
               <td>
                 {{vacante.createdOn | date : 'yyyy-MMM-dd'}}
+              </td>
+              <td>
+                {{vacante.expiresIn | date : 'yyyy-MMM-dd'}}
               </td>
               <td class="text-center">
                 <a ng-href="/administracion/vacantes/{{vacante._id}}" class="btn btn-xs btn-default"><i class="fa fa-pencil-square" aria-hidden="true"></i> Editar</a>

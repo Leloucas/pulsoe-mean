@@ -105,7 +105,7 @@ router
 
 router
   .route('/areas')
-  .get(ctrlUsers.isAdmin, ctrlAreas.areasGetAll)
+  .get(ctrlAreas.areasGetAll)
   .post(ctrlUsers.isAdmin, ctrlAreas.areasAddOne);
 
 router
@@ -134,5 +134,10 @@ router
   .route('/vacantes')
   .get(ctrlVacantes.vacantesGetAll)
   .post(ctrlUsers.isAdmin, ctrlVacantes.vacantesSaveOne);
+
+router
+  .route('/vacantes/:vacanteId')
+  .get(ctrlUsers.getLevel, ctrlVacantes.vacantesGetOne)
+  .put(ctrlUsers.isAdmin, ctrlVacantes.vacantesUpdateOne);
 
 module.exports = router;

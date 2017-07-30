@@ -203,6 +203,13 @@ function crearVacanteCtrl($rootScope, commonURL, $location, meanData, authentica
       fechaContrato = '';
     }
 
+    var fechaExpiracion = '';
+    if(vm.mesExp && vm.mesExp.hasOwnProperty('mes') && vm.mesExp.mes !== undefined){
+      if(vm.diaExp){
+        fechaExpiracion = new Date(vm.year, vm.mesExp.mes - 1, vm.diaExp)
+      }
+    }
+
     var salario = {
       cantidad : 0,
       periodo : vm.periodoSalario || ''
@@ -246,6 +253,7 @@ function crearVacanteCtrl($rootScope, commonURL, $location, meanData, authentica
     	},
     	idioma : vm.idiomas,
     	software : vm.softwares,
+      expiresIn : fechaExpiracion
     };
 
     meanData.saveVacante(vacante, vm.image)

@@ -52,8 +52,11 @@
             Vacantes <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href=""></a></li>
+            <li><a href="/vacantes">Todas las vacantes</a></li>
             <li class="divider"></li>
+            <li ng-repeat="area in navvm.areas track by $index">
+              <a ng-href="/vacantes?area={{area._id}}">{{area.name}}</a>
+            </li>
           </ul>
         </li>
         <!-- contacto -->

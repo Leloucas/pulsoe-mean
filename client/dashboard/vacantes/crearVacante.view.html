@@ -11,7 +11,7 @@
         </div>
         <div class="form-group">
           <label for="area">* Área</label>
-          <select name="area" id="area" class="form-control" ng-options="area as area.name for area in vm.areas track by area.name" ng-model="vm.area" ng-change="vm.getCategorias(vm.area)" required>
+          <select name="area" id="area" class="form-control" ng-options="area as area.name for area in vm.areas | filter : {deletedAt: null} track by area._id" ng-model="vm.area" ng-change="vm.getCategorias(vm.area)" required>
             <option value="" disabled selected>- Áreas registradas -</option>
           </select>
         </div>
@@ -190,6 +190,23 @@
             </div>
           </div>
         </div>
+        <div class="form-group">
+          <p class="smaller-text"><strong>Fecha de expiración. <span class="smaller-text text-muted">(Si se deja en blanco se tomará como 20 días a partir del día de hoy)</span></strong></p>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="diaExp">Día</label>
+              <select name="diaExp" id="diaExp" class="form-control" ng-model="vm.diaExp" ng-options="day as day for day in vm.days">
+                <option value="" selected>- Día -</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="mesExp">Mes</label>
+              <select name="mesExp" id="mesExp" class="form-control" ng-model="vm.mesExp" ng-options="month as month.nombre for month in vm.months">
+                <option value="" selected>- Mes -</option>
+              </select>
+            </div>
+        </div>
+        <br>
         <div class="form-group">
           <div class="row">
             <div class="col-md-8 col-sm-8">

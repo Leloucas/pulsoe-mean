@@ -1,0 +1,25 @@
+<form class="" action="" ng-submit="vacvm.search()">
+  <div class="input-group">
+    <input type="text" class="form-control" name="text" placeholder="Search for...">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i> Go!</button>
+    </span>
+  </div>
+</form>
+<h3 class="text-center">Filtros</h3>
+<hr>
+<h4 class="text-center">Últimas vacantes</h4>
+<div class="row vacante" ng-repeat="vacante in vacvm.vacantes track by $index">
+  <div class="col-md-3">
+    <a ng-href="/vacantes/{{vacante._id}}">
+      <img ng-src="./img/vacantes/{{vacante.imagen}}" alt="{{vacante.puesto}}" class="img-responsive" ng-if="vacante.imagen">
+      <img ng-src="./img/avatar.png" alt="{{vacante.puesto}}" class="img-responsive" ng-if="!vacante.imagen">
+    </a>
+  </div>
+  <div class="col-md-9">
+    <a ng-href="/vacantes/{{vacante._id}}">
+      <h4>{{vacante.puesto}}</h4>
+       Ver más
+     </a>
+  </div>
+</div>

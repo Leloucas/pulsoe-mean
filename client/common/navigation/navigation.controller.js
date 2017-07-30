@@ -1,7 +1,7 @@
 angular.module('meanPulso').controller('navigationCtrl',navigationCtrl);
 
-navigationCtrl.$inject = ['$location', 'authentication'];
-function navigationCtrl($location, authentication){
+navigationCtrl.$inject = ['$location', 'authentication', 'meanData'];
+function navigationCtrl($location, authentication, meanData){
   var vm = this;
 
   vm.isLoggedIn = authentication.isLoggedIn();
@@ -11,10 +11,24 @@ function navigationCtrl($location, authentication){
   vm.error = false;
   vm.errormessage = "";
 
+  vm.areas = [];
+
   vm.credentials = {
     email : "",
     password : ""
   };
+
+  // meanData.getAllAreas(3)
+  //   .then(function(response){
+  //     if(response.status === 200){
+  //       vm.areas = response.data;
+  //     } else if(response.status === 500){
+  //       console.log(response);
+  //     }
+  //   })
+  //   .catch(function(error){
+  //     console.log(error);
+  // });
 
   vm.login = function(){
     if(!vm.credentials.email || !vm.credentials.password){
