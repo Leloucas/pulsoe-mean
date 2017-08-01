@@ -85,6 +85,29 @@
             </div>
           </div>
         </div>
+        <div class="row text-capitalize" ng-hide="!vm.vacante.software.length">
+          <hr>
+          <p class="text-center"><strong>Software requerido</strong></p>
+          <div class="col-md-3 software-card" ng-repeat="sof in vm.vacante.software track by $index">
+            <h4>{{sof.software}}</h4>
+            <hr>
+            <p>{{sof.nivel}}</p>
+          </div>
+        </div>
+
+        <div class="row text-capitalize" ng-hide="!vm.vacante.idioma.length">
+          <hr>
+          <p class="text-center"><strong>Idiomas requeridos</strong></p>
+          <div class="col-md-4" ng-repeat="lang in vm.vacante.idioma track by $index">
+            <p>
+              <b>{{lang.idioma}}</b><br>
+              Niveles:<br>
+              Conversación: {{lang.conversacion}}<br>
+              Lectura: {{lang.lectura}}<br>
+              Redacción: {{lang.redaccion}}
+            </p>
+          </div>
+        </div>
         <br>
         <div class="row">
           <div class="col-md-12">

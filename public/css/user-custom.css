@@ -195,14 +195,6 @@ p.validation{
     position: relative;
     z-index: 2;
 }
-.software-card{
-  background-color: rgba(0, 0, 0, 0.75);
-  text-transform: capitalize !important;
-  color: #fff;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 5px;
-}
 .software-card>h4{
   text-transform: capitalize;
 }

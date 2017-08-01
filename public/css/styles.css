@@ -760,6 +760,15 @@ input.ng-valid.ng-touched{
     line-height: 1.75em;
 }
 
+.software-card{
+  background-color: rgba(0, 0, 0, 0.75);
+  text-transform: capitalize !important;
+  color: #fff;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
 .toggle-icon {
     width: 40px;
 }
