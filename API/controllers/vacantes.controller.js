@@ -219,7 +219,7 @@ module.exports.vacantesGetOne = function(req, res){
 
   var options = '';
 
-  if(req.level === 'user' || req.level === 'visitor'){
+  if(req.level === 'visitor'){
     options += '-users';
   }
 
@@ -227,6 +227,7 @@ module.exports.vacantesGetOne = function(req, res){
     .findById(vacanteId)
     .populate('area', '_id name')
     .populate('autor', '_id name lastname')
+    .populate('users', '_id name lastname email')
     .select(options)
     .exec(function(err, vacante){
       if(err){
@@ -368,4 +369,113 @@ module.exports.vacantesUpdateOne = function(req, res){
     }
   });
 
+};
+
+module.exports.vacanteApplyUser = function(req, res){
+  var vacanteId = req.params.vacanteId;
+  var userId = req.payload._id;
+
+  console.log("PATCH the Vacante " + vacanteId + ", add User " + userId);
+
+  Vacante
+    .findById(vacanteId)
+    .select('users')
+    .exec(function(err, vacante){
+      var response = {
+        status : 200,
+        message : []
+      };
+
+      if(err){
+        console.log("Error finding Vacante "+vacanteId);
+        response.status = 500;
+        response.message = err;
+      } else if(!vacante){
+        console.log("Vacante ID not found in database", vacanteId);
+        response.status = 404;
+        response.message = {
+          "message" : "La ID de la vacante (" + vacanteId + ") no se encontró en la base de datos"
+        };
+      }
+
+      if(vacante){
+        if (vacante.users.indexOf(userId) > -1) {
+          res
+            .status(409)
+            .json({
+              "message" : "Usted ya se encuentra postulado a esta vacante"
+            });
+        } else {
+          vacante.users.push(userId);
+
+          vacante.save(function(err, vacanteUpdated){
+            if(err){
+              res
+                .status(500)
+                .json(err);
+            } else {
+              _applyToUser(req, res);
+            }
+          });
+        }
+      } else {
+        res
+          .status(response.status)
+          .json(response.message);
+      }
+    });
+};
+
+var _applyToUser = function(req, res){
+  var vacanteId = req.params.vacanteId;
+  var userId = req.payload._id;
+
+  User
+    .findById(userId)
+    .select('vacantes')
+    .exec(function(err, user){
+      var response = {
+        status : 200,
+        message : []
+      };
+      if(err){
+        console.log("Error finding user "+userId);
+        response.status = 500;
+        response.message = err;
+      } else if(!user){
+        console.log("User ID not found in database", userId);
+        response.status = 404;
+        response.message = {
+          "message" : "La ID del usuario (" + userId + ") no se encontró en la base de datos"
+        };
+      }
+
+      if(user){
+        if (user.vacantes.indexOf(vacanteId) > -1) {
+          res
+            .status(409)
+            .json({
+              "message" : "Usted a esta vacante ya se encuentra postulado"
+            });
+        } else {
+          user.vacantes.push(vacanteId);
+
+          user.save(function(err, userUpdated){
+            if(err){
+              res
+                .status(500)
+                .json(err);
+            } else {
+              res
+                .status(201)
+                .json();
+            }
+          });
+        }
+      } else {
+        res
+          .status(response.status)
+          .json(response.message);
+      }
+    })
 };

@@ -1,4 +1,5 @@
 <form class="" action="" ng-submit="vacvm.search()">
+  <h3 class="text-center">Filtros</h3>
   <div class="input-group">
     <input type="text" class="form-control" name="text" placeholder="Search for...">
     <span class="input-group-btn">
@@ -6,7 +7,6 @@
     </span>
   </div>
 </form>
-<h3 class="text-center">Filtros</h3>
 <hr>
 <h4 class="text-center">Últimas vacantes</h4>
 <div class="row vacante" ng-repeat="vacante in vacvm.vacantes track by $index">

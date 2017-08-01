@@ -1,6 +1,6 @@
 angular.module('meanPulso').service('meanData',meanData);
 
-meanData.$inject = ['$http', 'authentication', 'Upload'];
+meanData.$inject = ['$http', 'authentication', 'Upload', '$window'];
 
 function meanData ($http, authentication, Upload){
   var token = authentication.getToken();
@@ -158,7 +158,12 @@ function meanData ($http, authentication, Upload){
   }
 
   function getOneVacante(id){
-    return $http.get('/api/vacantes/'+id).then(complete).catch(failed);
+    if(token){
+      return $http.get('/api/vacantes/'+id, headers).then(complete).catch(failed);
+    } else {
+      return $http.get('/api/vacantes/'+id).then(complete).catch(failed);
+    }
+
   }
 
   function updateVacante(id, vacante, file){
@@ -170,6 +175,10 @@ function meanData ($http, authentication, Upload){
     };
 
     return Upload.upload(req).then(complete).catch(failed);
+  }
+
+  function vacanteApply(vacante, user){
+    return $http.patch('/api/vacantes/'+vacante, user, headers).then(complete).catch(failed);
   }
 
   function complete(response){
@@ -209,6 +218,7 @@ function meanData ($http, authentication, Upload){
     getVacantes : getVacantes,
     saveVacante : saveVacante,
     getOneVacante : getOneVacante,
-    updateVacante : updateVacante
+    updateVacante : updateVacante,
+    vacanteApply : vacanteApply
   };
 }

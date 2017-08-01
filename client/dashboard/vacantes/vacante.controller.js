@@ -28,7 +28,7 @@ function vacanteCtrl($rootScope, $routeParams, $location, meanData, authenticati
       }
     })
     .catch(function(error){
-      console.log(error)
+      console.log(error);
   });
 
   vm.year = new Date().getFullYear();

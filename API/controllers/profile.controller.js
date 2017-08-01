@@ -56,6 +56,15 @@ module.exports.profileRead = function(req, res){
       .findById(req.payload._id)
       // .select('name lastname email profile')
       .select('-level -hash -salt -registered -createdOn -deletedOn')
+      // .populate('vacantes','_id area.name categoria.name descripcion ')
+      .populate({
+        path : 'vacantes',
+        select : 'area categoria imagen puesto descripcion estado ciudad pais',
+        populate : {
+          path :'area',
+          select : '-categorias'
+        }
+      })
       .exec(function(err, user){
         if (err) {
           res

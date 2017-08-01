@@ -11,7 +11,14 @@ function profileCtrl($rootScope, meanData, $window, authentication){
 
   meanData.getProfile()
     .then(function(response) {
-      vm.user = response.data;
+      if(response.status === 200){
+        vm.user = response.data;
+      } else if(response.status === 500){
+        console.log(response);
+        $window.alert("Ha ocurrido un problema al buscar el perfil");
+      } else if(response.status === 401){
+        $window.history.back();
+      }
     })
     .catch(function (e) {
       console.log(e);

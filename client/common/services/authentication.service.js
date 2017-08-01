@@ -38,7 +38,8 @@ authentication.$inject = ['$http', '$window', '$location'];
           lastname : payload.lastname,
           avatar : payload.avatar,
           registered : payload.registered,
-          level : payload.level
+          level : payload.level,
+          _id : payload._id
         };
       }
     };
@@ -56,7 +57,7 @@ authentication.$inject = ['$http', '$window', '$location'];
 
     var login = function(user) {
       return $http.post('/api/login', user).then(function(data) {
-        // console.log(data.data);
+        console.log("-----------------------------------------------");
         saveToken(data.data);
         return data;
       }).catch(function(error){

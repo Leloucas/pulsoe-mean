@@ -11,8 +11,8 @@
           <div class="col-md-3">
             <img ng-src="/img/vacantes/{{vm.vacante.imagen}}" alt="{{vm.vacante.puesto}}" class="img-responsive" ng-if="vm.vacante.imagen">
             <img ng-src="/img/avatar.png" alt="{{vm.vacante.puesto}}" class="img-responsive" ng-if="!vm.vacante.imagen">
-            <p class="smaller-text">Área: <a ng-href="/vacantes?area={{vm.vacante.area._id}}">{{vm.vacante.area.name}}</a></p>
-            <p class="smaller-text">Categoría: <a ng-href="/vacantes?area={{vm.vacante.area._id}}&categoria={{vm.vacante.categoria._id}}">{{vm.vacante.categoria.name}}</a></p>
+            <p class="smaller-text text-center">Área: <a ng-href="/vacantes?area={{vm.vacante.area._id}}">{{vm.vacante.area.name}}</a></p>
+            <p class="smaller-text text-center">Categoría: <a ng-href="/vacantes?area={{vm.vacante.area._id}}&categoria={{vm.vacante.categoria._id}}">{{vm.vacante.categoria.name}}</a></p>
           </div>
           <div class="col-md-9">
             <p>{{vm.vacante.descripcion}}</p>
@@ -21,6 +21,24 @@
               <span ng-hide="vm.vacante.tipoContrato !== 'indefinido'">por tiempo </span>
               <u>{{vm.vacante.tipoContrato}}</u>
             </p>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+              <div ng-if="vm.lv === 'user'">
+                <form ng-submit="vm.apply()" ng-if="!vm.already">
+                  <button class="btn btn-lg btn-primary" type="submit"><i class="fa fa-puzzle-piece" aria-hidden="true"></i> Postularme a esta vacante</button>
+                </form>
+                <div class="btn btn-lg btn-default" ng-if="vm.already" ng-disabled="vm.already"><i class="fa fa-info-circle" aria-hidden="true"></i> Usted ya se ha registrado a esta vacante</div>
+              </div>
+              <div ng-if="vm.lv !== 'user' && vm.lv !== 'admin' && vm.lv !== 'master'">
+                <p class="text-center well">
+                  ¿Le gustaría postularse a esta vacante?
+                  <br>
+                  <a href="/registro">Regístrese</a> o inicie sesión (en la parte superior) para postularse.
+                </p>
+              </div>
           </div>
         </div>
         <br>
@@ -67,6 +85,16 @@
             </div>
           </div>
         </div>
+        <br>
+        <div class="row">
+          <div class="col-md-12">
+            <div ng-if="vm.lv === 'admin' || vm.lv === 'master'">
+              <hr>
+              <p class="text-center">Esta vacante tiene {{vm.vacante.users.length || 0}} usuarios postulados.</p>
+            </div>
+          </div>
+        </div>
+        <p class="text-center">Visitas: {{vm.vacante.views}}</p>
       </div>
       <div class="col-md-3">
         <vacante-aside></vacante-aside>

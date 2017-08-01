@@ -91,6 +91,14 @@ module.exports.usersGetOne = function(req, res){
     .findById(userId)
     // .select('-hash -salt -data -experience -schooling -software -languages -courses -values -skills -salary -position -areas')
     .select('-hash -salt')
+    .populate({
+      path : 'vacantes',
+      select : 'area categoria imagen puesto descripcion estado ciudad pais',
+      populate : {
+        path :'area',
+        select : '-categorias'
+      }
+    })
     .exec(function(err, doc){
       var response = {
         status : 200,
@@ -160,7 +168,6 @@ module.exports.usersUpdateOne = function(req, res){
 module.exports.authenticate = function(req, res, next){
 
   var headerExists = req.headers.authorization;
-
   if(headerExists) {
     var token = req.headers.authorization.split(' ')[1];
     jwt.verify(token, process.env.JWTKey, function(error, decoded){

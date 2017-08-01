@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 
@@ -129,6 +130,7 @@ var userSchema = new mongoose.Schema({
     type : Boolean,
     default : false
   },
+  vacantes : [{ type: Schema.Types.ObjectId, ref: 'Vacante' }],
   createdOn : {
     type : Date,
     default : Date.now

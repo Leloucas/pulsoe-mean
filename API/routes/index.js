@@ -138,6 +138,7 @@ router
 router
   .route('/vacantes/:vacanteId')
   .get(ctrlUsers.getLevel, ctrlVacantes.vacantesGetOne)
-  .put(ctrlUsers.isAdmin, ctrlVacantes.vacantesUpdateOne);
+  .put(ctrlUsers.isAdmin, ctrlVacantes.vacantesUpdateOne)
+  .patch(ctrlUsers.authenticate, ctrlVacantes.vacanteApplyUser);
 
 module.exports = router;

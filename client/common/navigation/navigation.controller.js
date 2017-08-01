@@ -1,7 +1,7 @@
 angular.module('meanPulso').controller('navigationCtrl',navigationCtrl);
 
-navigationCtrl.$inject = ['$location', 'authentication', 'meanData'];
-function navigationCtrl($location, authentication, meanData){
+navigationCtrl.$inject = ['$location', 'authentication', 'meanData', '$window'];
+function navigationCtrl($location, authentication, meanData, $window){
   var vm = this;
 
   vm.isLoggedIn = authentication.isLoggedIn();
@@ -18,17 +18,17 @@ function navigationCtrl($location, authentication, meanData){
     password : ""
   };
 
-  // meanData.getAllAreas(3)
-  //   .then(function(response){
-  //     if(response.status === 200){
-  //       vm.areas = response.data;
-  //     } else if(response.status === 500){
-  //       console.log(response);
-  //     }
-  //   })
-  //   .catch(function(error){
-  //     console.log(error);
-  // });
+  meanData.getAllAreas(3)
+    .then(function(response){
+      if(response.status === 200){
+        vm.areas = response.data;
+      } else if(response.status === 500){
+        console.log(response);
+      }
+    })
+    .catch(function(error){
+      console.log(error);
+  });
 
   vm.login = function(){
     if(!vm.credentials.email || !vm.credentials.password){
@@ -48,6 +48,7 @@ function navigationCtrl($location, authentication, meanData){
             vm.errormessage = "Usuario o contraseña incorrectos";
           } else {
             // console.log("logeado papu");
+            $window.location.reload();
             $location.path('/perfil');
           }
         });

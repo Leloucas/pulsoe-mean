@@ -27,8 +27,8 @@
                   </div>
                   <div class="ibox-content no-padding border-left-right">
                       <div class="profile-pic">
-                          <img alt="image" class="img-responsive center-half" ng-src="/img/users/avatar/{{vm.user.data.imagen}}" ng-if="vm.user.data.imagen">
-                          <img alt="image" class="img-responsive center-half" ng-src="/img/avatar.png" ng-if="!vm.user.data.imagen">
+                          <img alt="{{vm.user.name}}" class="img-responsive center-half" ng-src="/img/users/avatar/{{vm.user.data.imagen}}" ng-if="vm.user.data.imagen">
+                          <img alt="{{vm.user.name}}" class="img-responsive center-half" ng-src="/img/avatar.png" ng-if="!vm.user.data.imagen">
                           <input type="file" ngf-select id="newAvatar" ng-model="vm.file" name="newAvatar" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="2MB" class="file hidden"/>
                           <label for="newAvatar" class="btn btn-sm btn-default"><i class="fa fa-camera" aria-hidden="true"></i> Cambiar</label>
                           <br>
@@ -44,7 +44,7 @@
                       </div>
                   </div>
                   <div class="ibox-content profile-content">
-                      <h4 class="text-center"><strong>{{vm.user.name}} {{vm.user.lastname}}</strong></h4>
+                      <h4 class="text-center text-capitalize"><strong>{{vm.user.name}} {{vm.user.lastname}}</strong></h4>
                       <div class="text-center">
 
                           <h5>
@@ -112,7 +112,7 @@
                   <div class="ibox float-e-margins">
                     <div class="ibox-title">
                       Formación académica (último grado de estudios):
-                      {{vm.user.schooling.nivel}}
+                      <span class="text-capitalize">{{vm.user.schooling.nivel}}</span>
                     </div>
                     <div class="ibox-content border-left-right">
                       <div class="row">
@@ -155,7 +155,7 @@
                     <div class="ibox-title">
                       Información adicional
                     </div>
-                    <div class="ibox-content">
+                    <div class="ibox-content text-capitalize">
 
                       <h5><strong>Principales puestos de interés</strong></h5>
                       <div class="row">
@@ -311,23 +311,43 @@
 
         <!-- vacantes -->
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-10 col-md-offset-1">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         Vacantes postuladas
                     </div>
                     <div class="ibox-content">
                         <div class="feed-activity-list">
-                            <div ng-show="vm.userVacantes">
-                                <div class="feed-element information" ng-repeat="vac in vm.userVacantes">
-
-                                    <a ng-href="#!/" class="btn btn-default btn-sm btn-edit pull-right"><i class="fa fa-pencil-square" aria-hidden="true"></i> Editar</a>
+                            <div ng-show="vm.user.vacantes.length">
+                                <div class="feed-element information" ng-repeat="vac in vm.user.vacantes">
+                                  <div class="row">
+                                    <div class="col-md-2">
+                                      <a ng-href="/vacantes/{{vac._id}}">
+                                        <img ng-src="img/vacantes/{{vac.imagen}}" alt="{{vac.puesto}}" ng-if="vac.imagen" class="img-responsive">
+                                        <img ng-src="img/avatar.png" alt="{{vac.puesto}}" ng-if="!vac.imagen" class="img-responsive">
+                                      </a>
+                                    </div>
+                                    <div class="col-md-10">
+                                      <h4><strong>{{vac.puesto}}</strong></h4>
+                                      <p>Área : <a ng-href="/vacantes?area={{vac.area._id}}">{{vac.area.name}}</a></p>
+                                      <p>Categoría : <a ng-href="/vacantes?area={{vac.area._id}}&categoria={{vac.categoria._id}}">{{vac.categoria.name}}</a></p>
+                                      <p>Ubicación: {{vac.ciudad}}, {{vac.estado}}, {{vac.pais}}</p>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="well">
+                                          <p class="text-justify">{{vac.descripcion}}</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <a ng-href="/vacantes/{{vac._id}}" class="btn btn-default btn-sm btn-edit pull-right"><i class="fa fa-pencil-square" aria-hidden="true"></i> Ver</a>
                                 </div>
                             </div>
-                            <div ng-hide="vm.userVacantes">
+                            <div ng-hide="vm.user.vacantes.length">
                                 <div class="information">
                                     <h5>No hay vacantes postuladas</h5>
-                                    <a ng-href="#!/" class="btn btn-default btn-sm btn-edit"><i class="fa fa-briefcase" aria-hidden="true"></i> Ver vacantes</a>
+                                    <a ng-href="/vacantes" class="btn btn-default btn-sm btn-edit"><i class="fa fa-briefcase" aria-hidden="true"></i> Ver vacantes</a>
                                 </div>
                             </div>
                         </div>
