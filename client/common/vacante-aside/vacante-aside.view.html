@@ -1,15 +1,103 @@
-<form class="" action="" ng-submit="vacvm.search()">
-  <h3 class="text-center">Filtros</h3>
-  <div class="input-group">
-    <input type="text" class="form-control" name="text" placeholder="Search for...">
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i> Go!</button>
-    </span>
+<form class="" name="filter" ng-submit="vacvm.search()">
+  <h3 class="text-center btn btn-primary btn-block" ng-click="vacvm.showFilter = !vacvm.showFilter"><i class="fa fa-sliders" aria-hidden="true"></i> Filtros</h3>
+  <br>
+  <div ng-show="vacvm.showFilter">
+    <div class="form-group">
+      <label for="puesto">Puesto</label>
+      <input type="text" name="puesto" id="puesto" class="form-control" ng-model="vacvm.puesto" maxlength="25" placeholder="Título del puesto">
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          <label for="pais">País</label>
+          <select name="pais" id="pais" class="form-control" ng-options="pais as pais.name for pais in vacvm.countries" ng-model="vacvm.pais" ng-change="vacvm.getEstado()" model="{{pais}}">
+            <option value="" selected disabled>- Filtrar por país -</option>
+          </select>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <label for="estado">Estado</label>
+          <select name="estado" id="estado" class="form-control" ng-options="estado as estado.name for estado in vacvm.states" ng-model="vacvm.estado" ng-disabled="!vacvm.states.length">
+            <option value="" disabled selected>- Filtrar por estado -</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="ciudad">Ciudad</label>
+      <input type="text" id="ciudad" name="ciudad" class="form-control" ng-model="vacvm.ciudad" maxlength="30" placeholder="Recuerde utilizar acentos">
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label for="edadMin">Edad mínima</label>
+          <input type="number" name="edadMin" id="edadMin" class="form-control" ng-model="vacvm.edadMin" ng-value="16" min="16" max="100" placeholder="Desde 16">
+        </div>
+        <div class="col-md-6">
+          <label for="edadMax">Edad máxima</label>
+          <input type="number" name="edadMax" id="edadMax" class="form-control" ng-model="vacvm.edadMax" min="16" max="100" placeholder="hasta 100">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label for="area">Área</label>
+          <select name="area" id="area" class="form-control" ng-options="area as area.name for area in vacvm.areas | filter : {deletedAt: null} track by area._id" ng-model="vacvm.area" ng-change="vacvm.getCategorias(vacvm.area)">
+            <option value="" disabled selected>- Registradas -</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="categoria">Categoria</label>
+          <select name="categoria" id="categoria" class="form-control" ng-model="vacvm.categoria" ng-disabled="!vacvm.categorias.length" ng-options="categoria as categoria.name for categoria in vacvm.categorias track by categoria.name">
+            <option value="" disabled selected>- Primero seleccione un área -</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <!-- salario -->
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label for="cantidad">Salario</label>
+          <input type="number" name="cantidad" id="cantidad" class="form-control" ng-model="vacvm.cantidadSalario" min="0" placeholder="(Sólo números enteros)">
+        </div>
+        <div class="col-md-6">
+          <label for="periodo">Periodo</label>
+          <select name="periodo" id="periodo" class="form-control" ng-model="vacvm.periodoSalario" >
+            <option value="" disabled>- (Opcional) -</option>
+            <option value="quincenal">Quincenal</option>
+            <option value="mensual">Mensual</option>
+            <option value="anual">Anual</option>
+            <option value="total">Total (para proyectos)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <!-- tipoContrato -->
+    <div class="form-group">
+      <label for="contrato">Tipo de contrato</label>
+      <select name="contrato" id="contrato" class="form-control" ng-model="vacvm.tipoContrato">
+        <option value="" disabled>- Seleccione un tipo -</option>
+        <option value="indefinido">Tiempo indefinido</option>
+        <option value="determinado">Tiempo determinado/fijo</option>
+        <option value="horas">Por horas</option>
+        <option value="proyecto">Por proyecto</option>
+        <option value="otro">Otro</option>
+      </select>
+    </div>
+    <!-- escolaridad -->
+    <div class="input-group">
+      <input type="text" class="form-control" ng-model="vacvm.datos" name="datos" placeholder="Buscar en descripción" maxlength="60">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+      </span>
+    </div>
   </div>
 </form>
 <hr>
 <h4 class="text-center">Últimas vacantes</h4>
 <div class="row vacante" ng-repeat="vacante in vacvm.vacantes track by $index">
+  <!-- <div class="col-md-3 col-sm-2 col-sm-offset-2"> -->
   <div class="col-md-3">
     <a ng-href="/vacantes/{{vacante._id}}">
       <img ng-src="./img/vacantes/{{vacante.imagen}}" alt="{{vacante.puesto}}" class="img-responsive" ng-if="vacante.imagen">
@@ -17,9 +105,10 @@
     </a>
   </div>
   <div class="col-md-9">
+  <!-- <div class="col-md-9 col-sm-8"> -->
     <a ng-href="/vacantes/{{vacante._id}}">
       <h4>{{vacante.puesto}}</h4>
        Ver más
-     </a>
+    </a>
   </div>
 </div>

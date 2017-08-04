@@ -73,6 +73,7 @@ function vacanteCtrl($rootScope, $routeParams, $location, meanData, authenticati
     var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
     vm.puesto = vacante.puesto;
+    vm.categoria = vacante.categoria;
     vm.area = vacante.area;
     vm.descripcion = vacante.descripcion;
     vm.ciudad = vacante.ciudad;
@@ -111,7 +112,9 @@ function vacanteCtrl($rootScope, $routeParams, $location, meanData, authenticati
       if(response.status === 200){
         vm.areas = response.data;
         vm.response = false;
-        vm.setArea();
+        $timeout(function(){
+          vm.setArea();
+        },250);
       } else if(response.status === 500){
         console.log(response);
         vm.error = true;
@@ -130,17 +133,16 @@ function vacanteCtrl($rootScope, $routeParams, $location, meanData, authenticati
 
   vm.setArea = function(){
     vm.areas.forEach(function(area){
-      if (area._id === vm.vacante.area) {
+      if (vm.vacante.area._id === area._id) {
         vm.area = area;
         vm.categorias = area.categorias;
         area.categorias.forEach(function(categoria){
           if(categoria._id === vm.vacante.categoria._id){
             vm.categoria = categoria;
           }
-        },this);
-
+        });
       }
-    },this);
+    });
   };
 
   $timeout(function(){

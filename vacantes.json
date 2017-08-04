@@ -1,0 +1,441 @@
+{
+	"_id": {
+		"$oid": "597a39858dd8140788fa7694"
+	},
+	"puesto": "Cajero",
+	"area": {
+		"$oid": "597060b4d6bd3e097096f996"
+	},
+	"autor": {
+		"$oid": "594c0c5ee161d013e4aa4ee5"
+	},
+	"pais": "Mexico",
+	"estado": "Sonora",
+	"ciudad": "Hermosillo",
+	"tipoContrato": "proyecto",
+	"deletedAt": null,
+	"expiresIn": {
+		"$date": "2017-08-03T07:00:00.000Z"
+	},
+	"createdOn": {
+		"$date": "2017-07-27T19:05:41.749Z"
+	},
+	"users": [],
+	"imagen": "vacante-1501182341698k4r.jpg",
+	"software": [
+		{
+			"software": "Excel",
+			"nivel": "dominado"
+		}
+	],
+	"idioma": [
+		{
+			"idioma": "Inglés",
+			"conversacion": "avanzado",
+			"lectura": "intermedio",
+			"redaccion": "intermedio"
+		},
+		{
+			"idioma": "Español",
+			"conversacion": "dominado",
+			"lectura": "dominado",
+			"redaccion": "dominado"
+		}
+	],
+	"escolaridad": {
+		"grado": "bachillerato",
+		"titulo": ""
+	},
+	"edadMax": 30,
+	"edadMin": 20,
+	"experiencia": {
+		"cantidad": 1,
+		"periodo": "year"
+	},
+	"fechaContrato": {
+		"$date": "2017-08-03T07:00:00.000Z"
+	},
+	"salario": {
+		"cantidad": 2800,
+		"periodo": "quincenal"
+	},
+	"jornada": {
+		"horas": 7,
+		"turno": "matutino"
+	},
+	"descripcion": "Buscamos cajero con experiencia para laborar en importante establecimiento en la ciudad de Hermosillo. El trabajo será pagado por proyecto y se necesita de gente de confianza.",
+	"categoria": {
+		"name": "Ventas",
+		"_id": {
+			"$oid": "5972ddc0fe12f52e10aee68a"
+		}
+	},
+	"__v": 1
+}
+{
+	"_id": {
+		"$oid": "597a3dd3c356f728eced330e"
+	},
+	"puesto": "Presidente",
+	"area": {
+		"$oid": "5975a257a89d5f265c631cba"
+	},
+	"autor": {
+		"$oid": "594c0c5ee161d013e4aa4ee5"
+	},
+	"pais": "Mexico",
+	"estado": "Sonora",
+	"ciudad": "Cd. Obregón",
+	"tipoContrato": "determinado",
+	"deletedAt": null,
+	"expiresIn": {
+		"$date": "2017-09-08T07:00:00.000Z"
+	},
+	"createdOn": {
+		"$date": "2017-07-27T19:24:03.656Z"
+	},
+	"users": [
+		{
+			"$oid": "595a8192f63fa210c4d136a5"
+		}
+	],
+	"imagen": "",
+	"escolaridad": {
+		"grado": "maestria",
+		"titulo": ""
+	},
+	"edadMax": 30,
+	"edadMin": 20,
+	"experiencia": {
+		"cantidad": 0,
+		"periodo": ""
+	},
+	"fechaContrato": {
+		"$date": "2018-05-04T07:00:00.000Z"
+	},
+	"salario": {
+		"cantidad": 9600,
+		"periodo": "quincenal"
+	},
+	"jornada": {
+		"horas": 8,
+		"turno": "nocturno"
+	},
+	"descripcion": "Necesitamos presidente para no esta empresa, la neta el que tenemos ya no sirve caon.",
+	"categoria": {
+		"name": "Gerente General",
+		"_id": {
+			"$oid": "59765742c4e3271d5066447f"
+		}
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "597c36345efcc5313850fca9"
+	},
+	"puesto": "Albañil",
+	"area": {
+		"$oid": "597c35b85efcc5313850fca7"
+	},
+	"autor": {
+		"$oid": "594c0c5ee161d013e4aa4ee5"
+	},
+	"pais": "Mexico",
+	"estado": "Sonora",
+	"ciudad": "Hermosillo",
+	"tipoContrato": "proyecto",
+	"deletedAt": null,
+	"expiresIn": {
+		"$date": "2017-08-04T07:00:00.000Z"
+	},
+	"createdOn": {
+		"$date": "2017-07-29T07:16:04.445Z"
+	},
+	"views": 0,
+	"users": [
+		{
+			"$oid": "595a8192f63fa210c4d136a5"
+		}
+	],
+	"imagen": "vacante-150131575702646u.jpg",
+	"escolaridad": {
+		"grado": "secundaria",
+		"titulo": ""
+	},
+	"edadMax": 80,
+	"edadMin": 16,
+	"experiencia": {
+		"cantidad": 0,
+		"periodo": ""
+	},
+	"fechaContrato": {
+		"$date": "2017-08-04T07:00:00.000Z"
+	},
+	"salario": {
+		"cantidad": 1500,
+		"periodo": "quincenal"
+	},
+	"jornada": {
+		"horas": 7,
+		"turno": "matutino"
+	},
+	"descripcion": "Necesitamos 10 albañiles para que nos ayuden a remodelar una casa en la colonia San Ángel",
+	"categoria": {
+		"name": "Construcción",
+		"_id": {
+			"$oid": "597c35c75efcc5313850fca8"
+		}
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "597c41e299c48117fc2edbbc"
+	},
+	"puesto": "Contador Público",
+	"area": {
+		"$oid": "5975a1baa89d5f265c631cb9"
+	},
+	"autor": {
+		"$oid": "594c0c5ee161d013e4aa4ee5"
+	},
+	"pais": "Mexico",
+	"estado": "Sonora",
+	"ciudad": "Puerto Peñasco",
+	"tipoContrato": "indefinido",
+	"deletedAt": null,
+	"expiresIn": {
+		"$date": "2017-09-17T07:00:00.000Z"
+	},
+	"createdOn": {
+		"$date": "2017-07-29T08:05:54.051Z"
+	},
+	"views": 0,
+	"users": [
+		{
+			"$oid": "595a8192f63fa210c4d136a5"
+		}
+	],
+	"imagen": "vacante-1501315553991puw.jpg",
+	"software": [],
+	"idioma": [
+		{
+			"idioma": "Inglés",
+			"conversacion": "dominado",
+			"lectura": "dominado",
+			"redaccion": "avanzado"
+		},
+		{
+			"idioma": "Mandarín",
+			"conversacion": "avanzado",
+			"lectura": "avanzado",
+			"redaccion": "intermedio"
+		}
+	],
+	"escolaridad": {
+		"grado": "licenciatura",
+		"titulo": "Licenciado en Contaduría Pública"
+	},
+	"edadMax": 45,
+	"edadMin": 25,
+	"experiencia": {
+		"cantidad": 1,
+		"periodo": "year"
+	},
+	"fechaContrato": null,
+	"salario": {
+		"cantidad": 8500,
+		"periodo": "mensual"
+	},
+	"jornada": {
+		"horas": 8,
+		"turno": "matutino"
+	},
+	"descripcion": "Necesitamos contador público para importante empresa en el noroeste del país",
+	"categoria": {
+		"name": "Finanzas",
+		"_id": {
+			"$oid": "597c412499c48117fc2edbbb"
+		}
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "5980efea3a388f37a423cf84"
+	},
+	"puesto": "Arquitecto",
+	"area": {
+		"$oid": "5980ee283a388f37a423cf82"
+	},
+	"autor": {
+		"$oid": "594c0c5ee161d013e4aa4ee5"
+	},
+	"pais": "Mexico",
+	"estado": "Sonora",
+	"ciudad": "Peñasco",
+	"tipoContrato": "indefinido",
+	"deletedAt": null,
+	"expiresIn": {
+		"$date": "2017-08-04T07:00:00.000Z"
+	},
+	"createdOn": {
+		"$date": "2017-08-01T21:17:30.869Z"
+	},
+	"views": 0,
+	"users": [
+		{
+			"$oid": "595a8192f63fa210c4d136a5"
+		}
+	],
+	"imagen": "vacante-1501622250843oi4.jpg",
+	"software": [],
+	"idioma": [
+		{
+			"idioma": "Inglés",
+			"conversacion": "avanzado",
+			"lectura": "avanzado",
+			"redaccion": "dominado"
+		}
+	],
+	"escolaridad": {
+		"grado": "licenciatura",
+		"titulo": "Lic. en Arquitectura"
+	},
+	"edadMax": 40,
+	"edadMin": 16,
+	"experiencia": {
+		"cantidad": 0,
+		"periodo": ""
+	},
+	"fechaContrato": {
+		"$date": "2018-05-07T07:00:00.000Z"
+	},
+	"salario": {
+		"cantidad": 0,
+		"periodo": ""
+	},
+	"jornada": {
+		"horas": 8,
+		"turno": "mixto"
+	},
+	"descripcion": "Para casas",
+	"categoria": {
+		"name": "Residencial",
+		"_id": {
+			"$oid": "5980ef163a388f37a423cf83"
+		}
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "59821a6f0d403a16b8e816e7"
+	},
+	"puesto": "Verificador",
+	"area": {
+		"$oid": "5975a257a89d5f265c631cba"
+	},
+	"autor": {
+		"$oid": "594c0c5ee161d013e4aa4ee5"
+	},
+	"pais": "Mexico",
+	"estado": "Sonora",
+	"ciudad": "San Luis Río Colorado",
+	"tipoContrato": "determinado",
+	"deletedAt": null,
+	"expiresIn": {
+		"$date": "2017-06-09T07:00:00.000Z"
+	},
+	"createdOn": {
+		"$date": "2017-08-02T18:31:11.990Z"
+	},
+	"views": 0,
+	"users": [],
+	"imagen": "",
+	"software": [],
+	"idioma": [],
+	"escolaridad": {
+		"grado": "tecnica",
+		"titulo": ""
+	},
+	"edadMax": 50,
+	"edadMin": 16,
+	"experiencia": {
+		"cantidad": 0,
+		"periodo": ""
+	},
+	"fechaContrato": null,
+	"salario": {
+		"cantidad": 9000,
+		"periodo": "mensual"
+	},
+	"jornada": {
+		"horas": 9,
+		"turno": "mixto"
+	},
+	"descripcion": "Necesitamos gente que haga examenes psicométricos a otra gente",
+	"categoria": {
+		"name": "Reclutador",
+		"_id": {
+			"$oid": "597654fbe29d151d046b96ed"
+		}
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "59821bf70d403a16b8e816fd"
+	},
+	"puesto": "Soporte técnico",
+	"area": {
+		"$oid": "597c35b85efcc5313850fca7"
+	},
+	"autor": {
+		"$oid": "5959c41b6e312b0ba0d5613b"
+	},
+	"pais": "Mexico",
+	"estado": "Sonora",
+	"ciudad": "Hermosillo",
+	"tipoContrato": "indefinido",
+	"deletedAt": null,
+	"expiresIn": null,
+	"createdOn": {
+		"$date": "2017-08-02T18:37:43.903Z"
+	},
+	"views": 0,
+	"users": [],
+	"imagen": "vacante-1501699063866yxi.png",
+	"software": [],
+	"idioma": [],
+	"escolaridad": {
+		"grado": "licenciatura",
+		"titulo": "Licenciado en Software"
+	},
+	"edadMax": 60,
+	"edadMin": 20,
+	"experiencia": {
+		"cantidad": 2,
+		"periodo": "year"
+	},
+	"fechaContrato": {
+		"$date": "2017-08-10T07:00:00.000Z"
+	},
+	"salario": {
+		"cantidad": 4200,
+		"periodo": "quincenal"
+	},
+	"jornada": {
+		"horas": 8,
+		"turno": "matutino"
+	},
+	"descripcion": "Alguien que le de servicio a todas las computadoras en un edificio comercial",
+	"categoria": {
+		"name": "Software",
+		"_id": {
+			"$oid": "59821b600d403a16b8e816fc"
+		}
+	},
+	"__v": 0
+}

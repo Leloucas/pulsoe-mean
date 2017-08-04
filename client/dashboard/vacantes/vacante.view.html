@@ -11,7 +11,7 @@
         </div>
         <div class="form-group">
           <label for="area">* Área</label>
-          <select name="area" id="area" class="form-control" ng-options="area as area.name for area in vm.areas track by area._id" ng-model="vm.area" ng-change="vm.getCategorias(" required>
+          <select name="area" id="area" class="form-control" ng-options="area as area.name for area in vm.areas track by area._id" ng-model="vm.area" ng-change="vm.getCategorias()" required>
             <option value="" disabled selected>- Áreas registradas -</option>
           </select>
         </div>

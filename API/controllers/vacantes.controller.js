@@ -53,13 +53,18 @@ module.exports.vacantesGetAll = function(req, res){
   var area = '';
 
   var Query = Vacante
-    .find()
-    .populate('area', '_id name')
-    .populate('autor', '_id name lastname');
+    .find();
 
   if (req.query && req.query.offset) {
     offset = parseInt(req.query.offset, 10);
     Query.skip(offset);
+  }
+
+  if(req.query && req.query.puesto){
+    var puesto = req.query.puesto;
+    puesto = decodeURI(puesto);
+    puesto = puesto.toLowerCase();
+    Query.where('puesto').equals( {$regex : new RegExp(puesto), $options: "i"})
   }
 
   if(req.query && req.query.count){
@@ -67,8 +72,94 @@ module.exports.vacantesGetAll = function(req, res){
     Query.limit(count);
   }
 
+  if(req.query && req.query.autor){
+    var autor = req.query.autor;
+    Query.populate('autor', '_id name lastname');
+    Query.where('autor').in([autor]);
+  } else {
+    Query.populate('autor', '_id name lastname');
+  }
+
   if (req.query && req.query.area) {
-    area = req.query.area;
+    var area = req.query.area;
+    Query.populate('area', '_id name');
+    Query.where('area').in([area]);
+  } else {
+    Query.populate('area', '_id name');
+  }
+
+  if(req.query && req.query.pais){
+    var pais = req.query.pais;
+    pais = decodeURI(pais);
+    pais = pais.replace(/\s|\W|[#$^&*()]/g, "");
+    Query.where('pais').equals(pais);
+  }
+
+  if(req.query && req.query.estado){
+    var estado = req.query.estado;
+    estado = decodeURI(estado);
+    estado = estado.replace(/\s|\W|[#$^&*()]/g, "");
+    Query.where('estado').equals(estado);
+  }
+
+  if(req.query && req.query.ciudad){
+    var ciudad = req.query.ciudad;
+    ciudad = decodeURI(ciudad);
+    ciudad = ciudad.toLowerCase();
+    Query.where('ciudad').equals( {$regex : new RegExp(ciudad), $options: "i"})
+  }
+
+  if(req.query && req.query.categoria){
+    var categoria = req.query.categoria;
+    Query.where('categoria._id').in([categoria]);
+  }
+
+  if(req.query && req.query.edadMin){
+    var edadMin = parseInt(req.query.edadMin, 10);
+    if(isNaN(edadMin)){
+      console.log("El parámetro debe ser un número");
+    } else {
+      Query.where('edadMin').gte(edadMin);
+    }
+  }
+
+  if(req.query && req.query.edadMax){
+    var edadMax = parseInt(req.query.edadMax, 10);
+    if(isNaN(edadMax)){
+      console.log("El parámetro debe ser un número");
+    } else {
+      Query.where('edadMax').lte(edadMax);
+    }
+  }
+
+  if(req.query && req.query.datos){
+    var datos = req.query.datos;
+    datos = decodeURI(datos);
+    // datos = datos.replace(/\s|\W|[#$^&*()]/g, "");
+    console.log(datos);
+
+    Query.where('descripcion').equals({'$regex': datos});
+  }
+
+  if(req.query && req.query.salario){
+    var salario = req.query.salario;
+    var sueldo = salario.split("-");
+    if(isNaN(sueldo[0])){
+      console.log("El parámetro debe ser un número");
+    } else {
+      sueldo[1] = sueldo[1].replace(/\s|\W|[#$^&*()]/g, "");
+      console.log(sueldo[0], sueldo[1]);
+      Query.where('salario.cantidad').gte(sueldo[0]);
+      if(sueldo[1]){
+        Query.where('salario.periodo').equals(sueldo[1]);
+      }
+    }
+  }
+
+  if(req.query && req.query.contrato){
+    var contrato = req.query.contrato;
+    contrato.replace(/\s|\W|[#$^&*()]/g, "");
+    Query.where('tipoContrato').equals(contrato);
   }
 
   if(isNaN(offset) || isNaN(count)){
