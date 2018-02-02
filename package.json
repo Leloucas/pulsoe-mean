@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "mean", "pulso"
+    "mean",
+    "pulso"
   ],
   "author": "King Claus",
   "license": "ISC",
@@ -35,7 +36,8 @@
     "ng-file-upload": "^12.2.13",
     "ngmap": "^1.18.4",
     "passport": "^0.3.2",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "socket.io": "^2.0.3"
   },
   "devDependencies": {
     "mocha": "^3.2.0"
